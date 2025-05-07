@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Banporkaew Menu</title>
   <style>
     * {
@@ -26,22 +27,34 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 10px;
       z-index: 10;
       transition: top 0.3s ease;
+      overflow-x: auto;
     }
 
     .logo {
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-left: 10px;
     }
 
     nav a {
-      margin: 0 10px;
+      margin: 0 8px;
       text-decoration: none;
       color: #333;
       font-weight: 500;
-      transition: color 0.3s;
+      font-size: 14px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     nav a:hover {
@@ -68,7 +81,7 @@
 
     .page img {
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: contain;
     }
 
@@ -90,7 +103,7 @@
 
     @media (max-width: 600px) {
       nav a {
-        font-size: 14px;
+        font-size: 12px;
       }
       #pageIndicator {
         font-size: 12px;
@@ -107,27 +120,25 @@
       <a href="#" onclick="scrollToPage(1)">หน้าแรก</a>
       <a href="#" onclick="scrollToPage(2)">ปลา</a>
       <a href="#" onclick="scrollToPage(4)">ลาบ</a>
-	  <a href="#" onclick="scrollToPage(6)">ต้ม</a>
-	  <a href="#" onclick="scrollToPage(8)">ผัดรสจัด</a>
-	  <a href="#" onclick="scrollToPage(10)">ผัดรสกลาง</a>
-	  <a href="#" onclick="scrollToPage(13)">ผัดผัก</a>
-	  <a href="#" onclick="scrollToPage(15)">ยำ</a>
-	  <a href="#" onclick="scrollToPage(19)">ทอด</a>
-	  <a href="#" onclick="scrollToPage(22)">ตำ</a>
-	  <a href="#" onclick="scrollToPage(24)">ราดข้าว</a>
-	  <a href="#" onclick="scrollToPage(26)">จิ้มจุ่ม</a>
-	  <a href="#" onclick="scrollToPage(28)">สลัด</a>
-	  <a href="#" onclick="scrollToPage(29)">ของหวาน</a>
-	  <a href="#" onclick="scrollToPage(30)">เครื่องดื่ม</a>
-	  <a href="#" onclick="scrollToPage(32)">เหล้าปั่น</a>
-	  <a href="#" onclick="scrollToPage(33)">การจองห้อง</a>
+      <a href="#" onclick="scrollToPage(6)">ต้ม</a>
+      <a href="#" onclick="scrollToPage(8)">ผัดรสจัด</a>
+      <a href="#" onclick="scrollToPage(10)">ผัดรสกลาง</a>
+      <a href="#" onclick="scrollToPage(13)">ผัดผัก</a>
+      <a href="#" onclick="scrollToPage(15)">ยำ</a>
+      <a href="#" onclick="scrollToPage(19)">ทอด</a>
+      <a href="#" onclick="scrollToPage(22)">ตำ</a>
+      <a href="#" onclick="scrollToPage(24)">ราดข้าว</a>
+      <a href="#" onclick="scrollToPage(26)">จิ้มจุ่ม</a>
+      <a href="#" onclick="scrollToPage(28)">สลัด</a>
+      <a href="#" onclick="scrollToPage(29)">ของหวาน</a>
+      <a href="#" onclick="scrollToPage(30)">เครื่องดื่ม</a>
+      <a href="#" onclick="scrollToPage(32)">เหล้าปั่น</a>
+      <a href="#" onclick="scrollToPage(33)">การจองห้อง</a>
     </nav>
   </header>
 
-  <!-- ตัวบอกหน้าปัจจุบัน -->
   <div id="pageIndicator">1 / 33</div>
 
-  <!-- รูปภาพเมนู -->
   <div class="container" id="container"></div>
 
   <script>
@@ -135,7 +146,6 @@
     const pageIndicator = document.getElementById('pageIndicator');
     const TOTAL_PAGES = 33;
 
-    // สร้างหน้า
     for (let i = 1; i <= TOTAL_PAGES; i++) {
       const page = document.createElement('div');
       page.className = 'page';
@@ -155,7 +165,6 @@
       }
     }
 
-    // อัปเดตตัวบอกหน้าเมื่อ scroll
     container.addEventListener('scroll', () => {
       const scrollTop = container.scrollTop;
       const pageHeight = window.innerHeight - 60;
