@@ -10,21 +10,54 @@
       box-sizing: border-box;
     }
 
-	html, body {
-	  height: 100%;
-	  overflow-x: hidden; /* ปิดเลื่อนด้านข้าง */
-	  overflow-y: hidden; /* ถ้าต้องการเลื่อนเฉพาะใน .container */
-	}
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+      transition: top 0.3s ease;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff6600;
+    }
 
     .container {
-      height: 100vh;
-      width: 100vw;
+      margin-top: 60px;
+      height: calc(100vh - 60px);
       overflow-y: scroll;
       scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
     }
 
     .page {
-      height: 100vh;
+      height: calc(100vh - 60px);
       width: 100%;
       scroll-snap-align: start;
       display: flex;
@@ -33,31 +66,77 @@
       background: #f2d4a7;
     }
 
-.page img {
-  width: 100%;
-  height: auto;
-  max-width: 100vw;
-  max-height: 100vh;
-  object-fit: contain;
-}
-    /* สำหรับมือถือ ปรับให้ดูดีขึ้น */
+    .page img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .hidden {
+      top: -70px;
+    }
+
+    #pageIndicator {
+      position: fixed;
+      bottom: 10px;
+      left: 15px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 14px;
+      z-index: 999;
+    }
+
     @media (max-width: 600px) {
-      .page img {
-        width: 100%;
-        height: auto;
+      nav a {
+        font-size: 14px;
+      }
+      #pageIndicator {
+        font-size: 12px;
+        padding: 3px 8px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container" id="container">
-    <!-- JS จะใส่รูปอัตโนมัติที่นี่ -->
-  </div>
+
+  <header id="header">
+    <div class="logo">Banporkaew</div>
+    <nav>
+      <a href="#" onclick="scrollToPage(1)">หน้าแรก</a>
+      <a href="#" onclick="scrollToPage(2)">ปลา</a>
+      <a href="#" onclick="scrollToPage(4)">ลาบ</a>
+	  <a href="#" onclick="scrollToPage(6)">ต้ม</a>
+	  <a href="#" onclick="scrollToPage(8)">ผัดรสจัด</a>
+	  <a href="#" onclick="scrollToPage(10)">ผัดรสกลาง</a>
+	  <a href="#" onclick="scrollToPage(13)">ผัดผัก</a>
+	  <a href="#" onclick="scrollToPage(15)">ยำ</a>
+	  <a href="#" onclick="scrollToPage(19)">ทอด</a>
+	  <a href="#" onclick="scrollToPage(22)">ตำ</a>
+	  <a href="#" onclick="scrollToPage(24)">ราดข้าว</a>
+	  <a href="#" onclick="scrollToPage(26)">จิ้มจุ่ม</a>
+	  <a href="#" onclick="scrollToPage(28)">สลัด</a>
+	  <a href="#" onclick="scrollToPage(29)">ของหวาน</a>
+	  <a href="#" onclick="scrollToPage(30)">เครื่องดื่ม</a>
+	  <a href="#" onclick="scrollToPage(32)">เหล้าปั่น</a>
+	  <a href="#" onclick="scrollToPage(33)">การจองห้อง</a>
+    </nav>
+  </header>
+
+  <!-- ตัวบอกหน้าปัจจุบัน -->
+  <div id="pageIndicator">1 / 33</div>
+
+  <!-- รูปภาพเมนู -->
+  <div class="container" id="container"></div>
 
   <script>
     const container = document.getElementById('container');
+    const pageIndicator = document.getElementById('pageIndicator');
+    const TOTAL_PAGES = 33;
 
-    for (let i = 1; i <= 33; i++) {
+    // สร้างหน้า
+    for (let i = 1; i <= TOTAL_PAGES; i++) {
       const page = document.createElement('div');
       page.className = 'page';
 
@@ -68,6 +147,22 @@
       page.appendChild(img);
       container.appendChild(page);
     }
+
+    function scrollToPage(pageNumber) {
+      const pages = document.querySelectorAll('.page');
+      if (pages[pageNumber - 1]) {
+        pages[pageNumber - 1].scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // อัปเดตตัวบอกหน้าเมื่อ scroll
+    container.addEventListener('scroll', () => {
+      const scrollTop = container.scrollTop;
+      const pageHeight = window.innerHeight - 60;
+      const currentPage = Math.round(scrollTop / pageHeight) + 1;
+      pageIndicator.textContent = `${currentPage} / ${TOTAL_PAGES}`;
+    });
   </script>
+
 </body>
 </html>
