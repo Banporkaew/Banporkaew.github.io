@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Banporkaew Menu</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+	html, body {
+	  height: 100%;
+	  overflow-x: hidden; /* ปิดเลื่อนด้านข้าง */
+	  overflow-y: hidden; /* ถ้าต้องการเลื่อนเฉพาะใน .container */
+	}
+
+    .container {
+      height: 100vh;
+      width: 100vw;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+    }
+
+    .page {
+      height: 100vh;
+      width: 100%;
+      scroll-snap-align: start;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f2d4a7;
+    }
+
+.page img {
+  width: 100%;
+  height: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: contain;
+}
+    /* สำหรับมือถือ ปรับให้ดูดีขึ้น */
+    @media (max-width: 600px) {
+      .page img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <!-- JS จะใส่รูปอัตโนมัติที่นี่ -->
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+
+    for (let i = 1; i <= 33; i++) {
+      const page = document.createElement('div');
+      page.className = 'page';
+
+      const img = document.createElement('img');
+      img.src = `${i}.jpg`;
+      img.alt = `หน้า ${i}`;
+
+      page.appendChild(img);
+      container.appendChild(page);
+    }
+  </script>
+</body>
+</html>
