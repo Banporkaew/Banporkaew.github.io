@@ -2,10 +2,16 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
   <title>Banporkaew Menu</title>
   <style>
     * {
+	  font-family: "Prompt", sans-serif;
+  font-weight: 400;
+  font-style: normal;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -23,42 +29,52 @@
       left: 0;
       right: 0;
       height: 60px;
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.95);
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding: 0 10px;
       z-index: 10;
-      transition: top 0.3s ease;
-      overflow-x: auto;
     }
 
     .logo {
       font-weight: bold;
-      font-size: 16px;
-      flex-shrink: 0;
+      font-size: 18px;
+      white-space: nowrap;
     }
 
-    nav {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin-left: 10px;
+	nav {
+	  display: flex;
+	  overflow-x: auto;
+	  white-space: nowrap;
+	  padding-left: 10px;
+	  padding-right: 20px; /* ✅ เพิ่ม padding ขวา เพื่อเว้นระยะ */
+	  margin-left: 10px;
+	  flex: 1;
+	  scrollbar-width: none; /* Firefox */
+	  scroll-behavior: smooth; /* ✅ เพิ่ม smooth horizontal scroll */
+	}
+
+
+    nav::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
     }
 
     nav a {
-      margin: 0 8px;
+      flex: 0 0 auto;
+      margin-right: 10px;
       text-decoration: none;
       color: #333;
       font-weight: 500;
       font-size: 14px;
-      white-space: nowrap;
-      flex-shrink: 0;
+      background-color: #eee;
+      padding: 6px 12px;
+      border-radius: 16px;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     nav a:hover {
-      color: #ff6600;
+      background-color: #ff6600;
+      color: white;
     }
 
     .container {
@@ -81,12 +97,8 @@
 
     .page img {
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: contain;
-    }
-
-    .hidden {
-      top: -70px;
     }
 
     #pageIndicator {
@@ -104,17 +116,35 @@
     @media (max-width: 600px) {
       nav a {
         font-size: 12px;
+        padding: 5px 10px;
       }
+
+      .logo {
+        font-size: 16px;
+      }
+
       #pageIndicator {
         font-size: 12px;
         padding: 3px 8px;
       }
     }
+	
+	.nav-fade-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 60px;
+  width: 30px;
+  pointer-events: none;
+  background: linear-gradient(to right, transparent, white); /* เงาละลายด้านขวา */
+  z-index: 11;
+}
+
   </style>
 </head>
 <body>
 
-  <header id="header">
+  <header>
     <div class="logo">Banporkaew</div>
     <nav>
       <a href="#" onclick="scrollToPage(1)">หน้าแรก</a>
@@ -137,41 +167,63 @@
     </nav>
   </header>
 
+  <!-- ตัวบอกหน้าปัจจุบัน -->
   <div id="pageIndicator">1 / 33</div>
 
+  <!-- รูปภาพเมนู -->
   <div class="container" id="container"></div>
 
-  <script>
-    const container = document.getElementById('container');
-    const pageIndicator = document.getElementById('pageIndicator');
-    const TOTAL_PAGES = 33;
+<script>
+  const container = document.getElementById('container');
+  const pageIndicator = document.getElementById('pageIndicator');
+  const TOTAL_PAGES = 33;
 
-    for (let i = 1; i <= TOTAL_PAGES; i++) {
-      const page = document.createElement('div');
-      page.className = 'page';
+  // สร้างหน้า
+  for (let i = 1; i <= TOTAL_PAGES; i++) {
+    const page = document.createElement('div');
+    page.className = 'page';
 
-      const img = document.createElement('img');
-      img.src = `${i}.jpg`;
-      img.alt = `หน้า ${i}`;
+    const img = document.createElement('img');
+    img.src = `${i}.jpg`;
+    img.alt = `หน้า ${i}`;
 
-      page.appendChild(img);
-      container.appendChild(page);
+    page.appendChild(img);
+    container.appendChild(page);
+  }
+
+  function scrollToPage(pageNumber) {
+    const pages = document.querySelectorAll('.page');
+    if (pages[pageNumber - 1]) {
+      pages[pageNumber - 1].scrollIntoView({ behavior: 'smooth' });
     }
+  }
 
-    function scrollToPage(pageNumber) {
-      const pages = document.querySelectorAll('.page');
-      if (pages[pageNumber - 1]) {
-        pages[pageNumber - 1].scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+  container.addEventListener('scroll', () => {
+    const scrollTop = container.scrollTop;
+    const pageHeight = window.innerHeight - 60;
+    const currentPage = Math.round(scrollTop / pageHeight) + 1;
+    pageIndicator.textContent = `${currentPage} / ${TOTAL_PAGES}`;
+  });
 
-    container.addEventListener('scroll', () => {
-      const scrollTop = container.scrollTop;
-      const pageHeight = window.innerHeight - 60;
-      const currentPage = Math.round(scrollTop / pageHeight) + 1;
-      pageIndicator.textContent = `${currentPage} / ${TOTAL_PAGES}`;
-    });
-  </script>
+  window.addEventListener('load', () => {
+    const nav = document.querySelector('nav');
+
+    // ✅ เพิ่มแถบเงาด้านขวา
+    const fade = document.createElement('div');
+    fade.className = 'nav-fade-right';
+    document.querySelector('header').appendChild(fade);
+
+    // ✅ ปัดเมนูอัตโนมัติขณะโหลดเพื่อดึงความสนใจ
+    setTimeout(() => {
+      nav.scrollTo({ left: 100, behavior: 'smooth' });
+    }, 500);
+
+    setTimeout(() => {
+      nav.scrollTo({ left: 0, behavior: 'smooth' });
+    }, 1500);
+  });
+</script>
+
 
 </body>
 </html>
