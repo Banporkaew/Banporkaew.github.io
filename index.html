@@ -113,33 +113,54 @@
       font-size: 14px;
       z-index: 999;
     }
-
-    @media (max-width: 600px) {
-      nav a {
-        font-size: 12px;
-        padding: 5px 10px;
-      }
-
-      .logo {
-        font-size: 16px;
-      }
-
-      #pageIndicator {
-        font-size: 12px;
-        padding: 3px 8px;
-      }
-    }
 	
 	.nav-fade-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 60px;
-  width: 30px;
-  pointer-events: none;
-  background: linear-gradient(to right, transparent, white); /* เงาละลายด้านขวา */
-  z-index: 11;
-}
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	  height: 60px;
+	  width: 30px;
+	  pointer-events: none;
+	  background: linear-gradient(to right, transparent, white); /* เงาละลายด้านขวา */
+	  z-index: 11;
+	}
+
+	/* Responsive tweaks */
+	@media (max-width: 768px) {
+	  .page {
+		padding: 10px;
+	  }
+
+	  nav a {
+		font-size: 13px;
+		padding: 5px 10px;
+	  }
+
+	  .logo {
+		font-size: 16px;
+	  }
+	}
+
+	@media (max-width: 480px) {
+	  nav a {
+		font-size: 13px;         /* เพิ่มจาก 12px */
+		padding: 6px 12px;       /* เพิ่ม padding ให้กดง่ายขึ้น */
+	  }
+
+	  .logo {
+		font-size: 16px;
+	  }
+
+	  #pageIndicator {
+		font-size: 12px;
+		padding: 4px 8px;
+	  }
+
+	  .page {
+		padding: 5px;
+	  }
+	}
+
 
   </style>
 </head>
