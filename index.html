@@ -25,8 +25,8 @@
         <div class="absolute inset-0 hero-gradient p-5 flex flex-col justify-start">
             <div class="flex justify-between items-start w-full">
                 <div>
-                    <h1 class="text-2xl font-bold text-white mb-0 translate-y-0" id="shop-name">จิ้มจุ่ม แจ่วฮ้อน</h1>
-                    <p class="text-white/90 text-xs font-light mt-1" id="shop-desc">ความอร่อยระดับตำนาน สูตรเด็ดเฉพาะร้านเรา</p>
+                    <h1 class="text-2xl font-bold text-white mb-0 translate-y-0" id="shop-name">สวนอาหารบ้านปอแก้ว</h1>
+                    <p class="text-white/90 text-xs font-light mt-1" id="shop-desc">ความอร่อยระดับตำนาน คิดสูตรเมื่อวานบอกตำนานไว้ก่อน</p>
                 </div>
                 <!-- Language Toggle 
                 <div class="flex bg-black/30 backdrop-blur-md rounded-full p-1 border border-white/20">
@@ -47,6 +47,7 @@
             <button onclick="scrollToSection('fried')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">เมนูทอด</button>
             <button onclick="scrollToSection('rice')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">จานเดียว</button>
             <button onclick="scrollToSection('desserts')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">สลัด/ของหวาน</button>
+			<button onclick="scrollToSection('drinks')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">เครื่องดื่ม</button>
             <button onclick="scrollToSection('info')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ห้องจัดเลี้ยง</button>
         </div>
     </nav>
@@ -373,19 +374,8 @@
         <section id="desserts" class="px-4 pt-10">
             <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
                 <span class="w-1 h-5 bg-pink-500 rounded-full mr-2"></span>
-                <span>เมนูสลัด ผลไม้ ขนมหวาน และเครื่องดื่ม</span>
+                <span>เมนูสลัด ผลไม้ ขนมหวาน</span>
             </h2>
-
-            <div class="grid grid-cols-2 gap-3 mb-4">
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
-                    <p class="font-medium text-gray-700 text-sm" id="drink-water">น้ำเปล่า</p>
-                    <p class="text-red-600 font-bold text-sm">15.-</p>
-                </div>
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
-                    <p class="font-medium text-gray-700 text-sm" id="drink-soda">น้ำอัดลม</p>
-                    <p class="text-red-600 font-bold text-sm">20.-</p>
-                </div>
-            </div>
 
             <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
                 <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
@@ -403,6 +393,67 @@
                 </div>
             </div>
         </section>
+		
+		        <!-- เครื่องดื่ม -->
+        <section id="drinks" class="px-4 pt-10">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-pink-500 rounded-full mr-2"></span>
+                <span>เครื่องดื่ม</span>
+            </h2>
+
+            <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <p class="font-medium text-gray-700 text-sm" id="drink-water">น้ำแข็งเล็ก</p>
+                    <p class="text-red-600 font-bold text-sm">15.-</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <p class="font-medium text-gray-700 text-sm" id="drink-soda">น้ำแข็งกลาง</p>
+                    <p class="text-red-600 font-bold text-sm">20.-</p>
+                </div>
+				<div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <p class="font-medium text-gray-700 text-sm" id="drink-soda">น้ำแข็งใหญ่</p>
+                    <p class="text-red-600 font-bold text-sm">25.-</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <p class="font-medium text-gray-700 text-sm" id="drink-soda">น้ำแข็งจัมโบ้</p>
+                    <p class="text-red-600 font-bold text-sm">30.-</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">รีกลม</span><span class="text-red-600 font-bold text-sm">700.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">รีแบน</span><span class="text-red-600 font-bold text-sm">465.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หงษ์ทองกลม</span><span class="text-red-600 font-bold text-sm">320.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หงษ์ทองแบน</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เบียร์ไฮเนเก้น</span><span class="text-red-600 font-bold text-sm">95.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เบียร์สิงห์</span><span class="text-red-600 font-bold text-sm">85.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เบียร์ลีโอ</span><span class="text-red-600 font-bold text-sm">80.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เบียร์ช้าง</span><span class="text-red-600 font-bold text-sm">80.-</span></div>
+
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">สปาย</span><span class="text-red-600 font-bold text-sm">50.-</span></div>
+
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">อัดลม</span><span class="text-red-600 font-bold text-sm">15-35.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">น้ำเปล่า</span><span class="text-red-600 font-bold text-sm">10-25.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">โชดา</span><span class="text-red-600 font-bold text-sm">20.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">น้ำแข็ง</span><span class="text-red-600 font-bold text-sm">15-30.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผ้าเย็น</span><span class="text-red-600 font-bold text-sm">15.-</span></div>
+
+					<!-- เพิ่มแยกโซนพิเศษ -->
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เหยือกเบียร์</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เบียร์แก้ว</span><span class="text-red-600 font-bold text-sm">69.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เพิ่มช็อต</span><span class="text-red-600 font-bold text-sm">20.-</span></div>
+
+					<!-- รสชาติ -->
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ลิ้นจี่ / กีวี่</span><span class="text-red-600 font-bold text-sm">-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">บลูฮาวาย / แอ๊ปเปิลเขียว</span><span class="text-red-600 font-bold text-sm">-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">สตอเบอร์รี่ / มะนาว</span><span class="text-red-600 font-bold text-sm">-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">สัปปะรด / แตงโม</span><span class="text-red-600 font-bold text-sm">-</span></div>
+                </div>
+            </div>
+        </section>
+
 
         <!-- ห้องจัดเลี้ยง -->
         <section id="info" class="px-4 pt-10 pb-4">
@@ -424,8 +475,8 @@
     </main>
 
     <footer class="bg-white border-t border-gray-100 p-8 text-center pb-12">
-        <p class="text-sm text-gray-500 mb-1 font-medium" id="footer-welcome">ร้านจิ้มจุ่ม แจ่วฮ้อน ยินดีต้อนรับครับ</p>
-        <p class="text-[10px] text-gray-400 uppercase tracking-widest" id="footer-note">Enjoy your authentic Thai hot pot</p>
+        <p class="text-sm text-gray-500 mb-1 font-medium" id="footer-welcome">สวนอาหารบ้านปอแก้ว</p>
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest" id="footer-note">Banporkaew</p>
     </footer>
 
     <script>
@@ -520,7 +571,7 @@
         }
 
         window.addEventListener('scroll', () => {
-            const sections = ['sets', 'boiled', 'soup', 'stirfry', 'spicysalad', 'fried', 'rice', 'desserts', 'info'];
+            const sections = ['sets', 'boiled', 'soup', 'stirfry', 'spicysalad', 'fried', 'rice', 'desserts', 'drinks', 'info'];
             let current = '';
 
             sections.forEach(section => {
