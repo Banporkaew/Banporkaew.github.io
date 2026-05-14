@@ -15,6 +15,14 @@
         .lang-btn.active { background-color: #dc2626; color: white; border-color: #dc2626; }
         .menu-card { transition: transform 0.2s; }
         .menu-card:active { transform: scale(0.98); }
+		
+				/* เพิ่มส่วนนี้เพื่อให้รายการอาหารแถวคู่มีสีเทาอ่อน */
+		.menu-list-container > div:nth-child(even) {
+			background-color: #f7f7f7; /* สีเทาจางๆ */
+		}
+		/* เพิ่มความโค้งให้ตัวแรกและตัวสุดท้ายเพื่อให้เข้ากับกรอบ */
+		.menu-list-container > div:first-child { border-radius: 1rem 1rem 0 0; }
+		.menu-list-container > div:last-child { border-radius: 0 0 1rem 1rem; }
     </style>
 </head>
 <body class="bg-stone-50">
@@ -58,11 +66,11 @@
         <section class="p-4 grid grid-cols-2 gap-3 mt-2">
             <div class="bg-white p-3 rounded-2xl shadow-sm border-l-4 border-orange-400">
                 <h3 class="text-orange-600 font-bold text-sm" id="soup-jj-title">สูตรจิ้มจุ่ม</h3>
-                <p class="text-[10px] text-gray-500 leading-tight mt-1" id="soup-jj-desc">น้ำซุปขิง หอมสมุนไพร รสชาตินุ่มนวล</p>
+                <p class="text-[10px] text-gray-500 leading-tight mt-1" id="soup-jj-desc">น้ำซุมขิงหอมนุ่ม</p>
             </div>
             <div class="bg-white p-3 rounded-2xl shadow-sm border-l-4 border-red-600">
                 <h3 class="text-red-600 font-bold text-sm" id="soup-jh-title">สูตรแจ่วฮ้อน</h3>
-                <p class="text-[10px] text-gray-500 leading-tight mt-1" id="soup-jh-desc">มะกรูด โหระพา พริก รสจัดจ้านถึงใจ</p>
+                <p class="text-[10px] text-gray-500 leading-tight mt-1" id="soup-jh-desc">น้ำซุปข่าตระไคร้ ใบกรูด พริก</p>
             </div>
         </section>
 
@@ -97,7 +105,7 @@
                             <p class="text-[11px] text-gray-400 line-clamp-2 mt-1" id="item-fish-desc">เนื้อปลาสดคุณภาพดี</p>
                         </div>
                         <div class="flex justify-between items-end">
-                            <span class="text-lg font-bold text-red-600">388.-</span>
+                            <span class="text-lg font-bold text-red-600">389.-</span>
                         </div>
                     </div>
                 </div>
@@ -401,25 +409,6 @@
                 <span>เครื่องดื่ม</span>
             </h2>
 
-            <div class="grid grid-cols-2 gap-3 mb-4">
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
-                    <p class="font-medium text-gray-700 text-sm" id="drink-water">น้ำแข็งเล็ก</p>
-                    <p class="text-red-600 font-bold text-sm">15.-</p>
-                </div>
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
-                    <p class="font-medium text-gray-700 text-sm" id="drink-soda">น้ำแข็งกลาง</p>
-                    <p class="text-red-600 font-bold text-sm">20.-</p>
-                </div>
-				<div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
-                    <p class="font-medium text-gray-700 text-sm" id="drink-soda">น้ำแข็งใหญ่</p>
-                    <p class="text-red-600 font-bold text-sm">25.-</p>
-                </div>
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
-                    <p class="font-medium text-gray-700 text-sm" id="drink-soda">น้ำแข็งจัมโบ้</p>
-                    <p class="text-red-600 font-bold text-sm">30.-</p>
-                </div>
-            </div>
-
             <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
                 <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
 					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">รีกลม</span><span class="text-red-600 font-bold text-sm">700.-</span></div>
@@ -437,12 +426,12 @@
 					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">อัดลม</span><span class="text-red-600 font-bold text-sm">15-35.-</span></div>
 					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">น้ำเปล่า</span><span class="text-red-600 font-bold text-sm">10-25.-</span></div>
 					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">โชดา</span><span class="text-red-600 font-bold text-sm">20.-</span></div>
-					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">น้ำแข็ง</span><span class="text-red-600 font-bold text-sm">15-30.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">น้ำแข็ง</span><span class="text-red-600 font-bold text-sm">20-40.-</span></div>
 					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผ้าเย็น</span><span class="text-red-600 font-bold text-sm">15.-</span></div>
 
 					<!-- เพิ่มแยกโซนพิเศษ -->
-					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เหยือกเบียร์</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
-					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เบียร์แก้ว</span><span class="text-red-600 font-bold text-sm">69.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เหล้าปั่นหยือก</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เหล้าปั่นแก้ว</span><span class="text-red-600 font-bold text-sm">75.-</span></div>
 					<div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เพิ่มช็อต</span><span class="text-red-600 font-bold text-sm">20.-</span></div>
 
 					<!-- รสชาติ -->
@@ -480,86 +469,7 @@
     </footer>
 
     <script>
-        const translations = {
-            th: {
-                shopName: "สวนอาหารบ้านปอแก้ว",
-                shopDesc: "ความอร่อยระดับตำนาน คิดสูตรเมื่อวานบอกตำนานไว้ก่อน",
-                soupJJTitle: "สูตรจิ้มจุ่ม",
-                soupJJDesc: "น้ำซุปขิง หอมสมุนไพร รสชาตินุ่มนวล",
-                soupJHTitle: "สูตรแจ่วฮ้อน",
-                soupJHDesc: "มะกรูด โหระพา พริก รสจัดจ้านถึงใจ",
-                titleSets: "ชุดสุดคุ้ม (Main Sets)",
-                titleExtras: "สั่งเพิ่ม (Add-ons)",
-                itemMixedName: "ชุดรวมมิตร",
-                itemMixedDesc: "ครบจบในชุดเดียว",
-                itemFishName: "ชุดปลาคัง/ปลากระพง",
-                itemFishDesc: "เนื้อปลาสดคุณภาพดี",
-                itemPorkName: "ชุดหมูล้วน",
-                addVeg: "เพิ่มชุดผักสด",
-                addTofu: "เพิ่มเต้าหู้ไข่",
-                addMushroom: "เพิ่มเห็ดเข็มทอง",
-                drinkWater: "น้ำเปล่า",
-                drinkSoda: "น้ำอัดลม",
-                footerWelcome: "ร้านจิ้มจุ่ม แจ่วฮ้อน ยินดีต้อนรับครับ",
-                footerNote: "สัมผัสรสชาติไทยแท้ที่นี่"
-            },
-            en: {
-                shopName: "Jim-Jum & Jaew-Hon",
-                shopDesc: "Legendary Thai Hot Pot - Our secret recipes.",
-                soupJJTitle: "Jim-Jum Style",
-                soupJJDesc: "Ginger-based herbal soup, mild & aromatic.",
-                soupJHTitle: "Jaew-Hon Style",
-                soupJHDesc: "Lime leaves, basil, chili - spicy & bold.",
-                titleSets: "Main Sets",
-                titleExtras: "Add-ons",
-                itemMixedName: "Mixed Combo Set",
-                itemMixedDesc: "Pork, Beef, Seafood & Veggies",
-                itemFishName: "Premium Fish Set",
-                itemFishDesc: "Fresh sliced fish",
-                itemPorkName: "Pork Lover Set",
-                addVeg: "Extra Vegetable Set",
-                addTofu: "Extra Egg Tofu",
-                addMushroom: "Extra Enoki Mushroom",
-                drinkWater: "Drinking Water",
-                drinkSoda: "Soft Drinks",
-                footerWelcome: "Welcome to our shop!",
-                footerNote: "Enjoy your authentic Thai hot pot"
-            }
-        };
 
-        function setLanguage(lang) {
-            const data = translations[lang];
-            
-            // Update Text Content where applicable (Keeping full menu in Thai as standard)
-            document.getElementById('shop-name').textContent = data.shopName;
-            document.getElementById('shop-desc').textContent = data.shopDesc;
-            document.getElementById('soup-jj-title').textContent = data.soupJJTitle;
-            document.getElementById('soup-jj-desc').textContent = data.soupJJDesc;
-            document.getElementById('soup-jh-title').textContent = data.soupJHTitle;
-            document.getElementById('soup-jh-desc').textContent = data.soupJHDesc;
-            document.getElementById('title-sets').textContent = data.titleSets;
-            document.getElementById('title-extras').textContent = data.titleExtras;
-            document.getElementById('item-mixed-name').textContent = data.itemMixedName;
-            document.getElementById('item-mixed-desc').textContent = data.itemMixedDesc;
-            document.getElementById('item-fish-name').textContent = data.itemFishName;
-            document.getElementById('item-fish-desc').textContent = data.itemFishDesc;
-            document.getElementById('item-pork-name').textContent = data.itemPorkName;
-            document.getElementById('add-veg').textContent = data.addVeg;
-            document.getElementById('add-tofu').textContent = data.addTofu;
-            document.getElementById('add-mushroom').textContent = data.addMushroom;
-            document.getElementById('drink-water').textContent = data.drinkWater;
-            document.getElementById('drink-soda').textContent = data.drinkSoda;
-            document.getElementById('footer-welcome').textContent = data.footerWelcome;
-            document.getElementById('footer-note').textContent = data.footerNote;
-
-            // Update UI State
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                btn.classList.add('text-white');
-            });
-            document.getElementById('lang-' + lang).classList.add('active');
-            document.getElementById('lang-' + lang).classList.remove('text-white');
-        }
 
         function scrollToSection(id) {
             const element = document.getElementById(id);
