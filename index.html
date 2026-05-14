@@ -1,252 +1,559 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <title>Banporkaew Menu</title>
-  <style>
-    * {
-	  font-family: "Prompt", sans-serif;
-	  font-weight: 400;
-	  font-style: normal;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      overflow: hidden;
-      font-family: sans-serif;
-    }
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background-color: rgba(255, 255, 255, 0.95);
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      z-index: 10;
-    }
-
-    .logo {
-      font-weight: bold;
-      font-size: 18px;
-      white-space: nowrap;
-    }
-
-	nav {
-	  display: flex;
-	  overflow-x: auto;
-	  white-space: nowrap;
-	  padding-left: 10px;
-	  padding-right: 20px; /* ✅ เพิ่ม padding ขวา เพื่อเว้นระยะ */
-	  margin-left: 10px;
-	  flex: 1;
-	  scrollbar-width: none; /* Firefox */
-	  scroll-behavior: smooth; /* ✅ เพิ่ม smooth horizontal scroll */
-	}
-
-
-    nav::-webkit-scrollbar {
-      display: none; /* Chrome, Safari */
-    }
-
-    nav a {
-      flex: 0 0 auto;
-      margin-right: 10px;
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      font-size: 14px;
-      background-color: #eee;
-      padding: 6px 12px;
-      border-radius: 16px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    nav a:hover {
-      background-color: #ff6600;
-      color: white;
-    }
-
-
-    .container {
-      margin-top: 60px;
-      height: calc(100vh - 60px);
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-    }
-
-    .page {
-      height: calc(100vh - 60px);
-      width: 100%;
-      scroll-snap-align: start;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f2d4a7;
-    }
-
-    .page img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    #pageIndicator {
-      position: fixed;
-      bottom: 10px;
-      left: 15px;
-      background-color: rgba(0, 0, 0, 0.5);
-      color: #fff;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 14px;
-      z-index: 999;
-    }
-	
-	.nav-fade-right {
-	  position: absolute;
-	  top: 0;
-	  right: 0;
-	  height: 60px;
-	  width: 30px;
-	  pointer-events: none;
-	  background: linear-gradient(to right, transparent, white); /* เงาละลายด้านขวา */
-	  z-index: 11;
-	}
-
-/* Responsive tweaks */
-@media (max-width: 768px) {
-  .page {
-    padding: 10px;
-  }
-
-  nav a {
-    font-size: 13px;
-    padding: 5px 10px;
-  }
-
-  .logo {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  nav a {
-    font-size: 13px;         /* เพิ่มจาก 12px */
-    padding: 6px 12px;       /* เพิ่ม padding ให้กดง่ายขึ้น */
-  }
-
-  .logo {
-    font-size: 16px;
-  }
-
-  #pageIndicator {
-    font-size: 12px;
-    padding: 4px 8px;
-  }
-
-  .page {
-    padding: 5px;
-  }
-}
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สวนอาหารบ้านปอแก้ว | Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Kanit', 'Inter', sans-serif; background-color: #fdfcfb; color: #333; }
+        .hero-gradient { background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%); }
+        .category-scroll::-webkit-scrollbar { display: none; }
+        .sticky-tabs { position: sticky; top: 0; z-index: 40; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .active-tab { color: #dc2626; border-bottom: 3px solid #dc2626; font-weight: 600; }
+        .lang-btn.active { background-color: #dc2626; color: white; border-color: #dc2626; }
+        .menu-card { transition: transform 0.2s; }
+        .menu-card:active { transform: scale(0.98); }
+    </style>
 </head>
-<body>
+<body class="bg-stone-50">
 
-  <header>
-    <div class="logo">Banporkaew</div>
-    <nav>
-      <a href="#" onclick="scrollToPage(1)">หน้าแรก</a>
-      <a href="#" onclick="scrollToPage(2)">ปลา</a>
-      <a href="#" onclick="scrollToPage(4)">ลาบ</a>
-      <a href="#" onclick="scrollToPage(6)">ต้ม</a>
-      <a href="#" onclick="scrollToPage(8)">ผัดรสจัด</a>
-      <a href="#" onclick="scrollToPage(10)">ผัดรสกลาง</a>
-      <a href="#" onclick="scrollToPage(13)">ผัดผัก</a>
-      <a href="#" onclick="scrollToPage(15)">ยำ</a>
-      <a href="#" onclick="scrollToPage(19)">ทอด</a>
-      <a href="#" onclick="scrollToPage(22)">ตำ</a>
-      <a href="#" onclick="scrollToPage(24)">ราดข้าว</a>
-      <a href="#" onclick="scrollToPage(26)">จิ้มจุ่ม</a>
-      <a href="#" onclick="scrollToPage(28)">สลัด</a>
-      <a href="#" onclick="scrollToPage(29)">ของหวาน</a>
-      <a href="#" onclick="scrollToPage(30)">เครื่องดื่ม</a>
-      <a href="#" onclick="scrollToPage(32)">เหล้าปั่น</a>
-      <a href="#" onclick="scrollToPage(33)">การจองห้อง</a>
+    <header class="relative h-56 overflow-hidden">
+       <!--  <img src="https://placehold.co/800x600/b91c1c/ffffff?text=Thai+Hots+Pot" alt="Hero Image" class="w-full h-full object-cover">-->
+		<img src="bg.jpg" alt="Image" class="w-full h-full object-cover">
+        <div class="absolute inset-0 hero-gradient p-5 flex flex-col justify-start">
+            <div class="flex justify-between items-start w-full">
+                <div>
+                    <h1 class="text-2xl font-bold text-white mb-0 translate-y-0" id="shop-name">จิ้มจุ่ม แจ่วฮ้อน</h1>
+                    <p class="text-white/90 text-xs font-light mt-1" id="shop-desc">ความอร่อยระดับตำนาน สูตรเด็ดเฉพาะร้านเรา</p>
+                </div>
+                <!-- Language Toggle 
+                <div class="flex bg-black/30 backdrop-blur-md rounded-full p-1 border border-white/20">
+                    <button onclick="setLanguage('th')" id="lang-th" class="lang-btn active px-3 py-1 rounded-full text-xs font-bold transition-all">TH</button>
+                    <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-3 py-1 rounded-full text-xs font-bold transition-all text-white">EN</button>
+                </div>-->
+            </div>
+        </div>
+    </header>
+
+    <nav class="sticky-tabs border-b border-gray-200 px-4">
+        <div class="flex space-x-6 overflow-x-auto category-scroll py-4" id="nav-tabs">
+            <button onclick="scrollToSection('sets')" class="tab-btn active-tab whitespace-nowrap text-sm transition-all" id="tab-sets">ชุดจิ้มจุ่ม/แจ่วฮ้อน</button>
+            <button onclick="scrollToSection('boiled')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ลาบ/ลวกจิ้ม/นึ่ง</button>
+            <button onclick="scrollToSection('soup')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ต้ม/แกง</button>
+            <button onclick="scrollToSection('stirfry')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">เมนูผัด</button>
+            <button onclick="scrollToSection('spicysalad')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ยำ/ส้มตำ</button>
+            <button onclick="scrollToSection('fried')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">เมนูทอด</button>
+            <button onclick="scrollToSection('rice')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">จานเดียว</button>
+            <button onclick="scrollToSection('desserts')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">สลัด/ของหวาน</button>
+            <button onclick="scrollToSection('info')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ห้องจัดเลี้ยง</button>
+        </div>
     </nav>
-  </header>
 
-  <!-- ตัวบอกหน้าปัจจุบัน -->
-  <div id="pageIndicator">1 / 33</div>
+    <main class="max-w-xl mx-auto pb-24">
+        
+        <!-- Soup Info Section -->
+        <section class="p-4 grid grid-cols-2 gap-3 mt-2">
+            <div class="bg-white p-3 rounded-2xl shadow-sm border-l-4 border-orange-400">
+                <h3 class="text-orange-600 font-bold text-sm" id="soup-jj-title">สูตรจิ้มจุ่ม</h3>
+                <p class="text-[10px] text-gray-500 leading-tight mt-1" id="soup-jj-desc">น้ำซุปขิง หอมสมุนไพร รสชาตินุ่มนวล</p>
+            </div>
+            <div class="bg-white p-3 rounded-2xl shadow-sm border-l-4 border-red-600">
+                <h3 class="text-red-600 font-bold text-sm" id="soup-jh-title">สูตรแจ่วฮ้อน</h3>
+                <p class="text-[10px] text-gray-500 leading-tight mt-1" id="soup-jh-desc">มะกรูด โหระพา พริก รสจัดจ้านถึงใจ</p>
+            </div>
+        </section>
 
-  <!-- รูปภาพเมนู -->
-  <div class="container" id="container"></div>
-  
+        <!-- ชุดจิ้มจุ่ม/แจ่วฮ้อน -->
+        <section id="sets" class="px-4 pt-4">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-red-600 rounded-full mr-2"></span>
+                <span id="title-sets">ชุดสุดคุ้ม (Main Sets)</span>
+            </h2>
+            
+            <div class="space-y-4">
+                <!-- ชุดรวมมิตร -->
+                <div class="menu-card flex bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                    <img src="https://placehold.co/300x300/f97316/ffffff?text=Mixed+Set" class="w-32 h-32 object-cover" alt="Mixed Set">
+                    <div class="flex-1 p-4 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-gray-800" id="item-mixed-name">ชุดรวมมิตร</h4>
+                            <p class="text-[11px] text-gray-400 line-clamp-2 mt-1" id="item-mixed-desc">ครบจบในชุดเดียว</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-lg font-bold text-red-600">299.-</span>
+                        </div>
+                    </div>
+                </div>
 
-<script>
-  const container = document.getElementById('container');
-  const pageIndicator = document.getElementById('pageIndicator');
-  const TOTAL_PAGES = 33;
+                <!-- ชุดปลา -->
+                <div class="menu-card flex bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                    <img src="https://placehold.co/300x300/3b82f6/ffffff?text=Fish+Set" class="w-32 h-32 object-cover" alt="Fish Set">
+                    <div class="flex-1 p-4 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-gray-800" id="item-fish-name">ชุดปลาคัง/ปลากระพง</h4>
+                            <p class="text-[11px] text-gray-400 line-clamp-2 mt-1" id="item-fish-desc">เนื้อปลาสดคุณภาพดี</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-lg font-bold text-red-600">388.-</span>
+                        </div>
+                    </div>
+                </div>
 
-  // สร้างหน้า
-  for (let i = 1; i <= TOTAL_PAGES; i++) {
-    const page = document.createElement('div');
-    page.className = 'page';
+                <!-- ชุดอื่นๆ แบบรายการ -->
+                <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100 mt-4">
+                    <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                        <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm font-medium">ชุดปลานิล (ยกตัว)</span><span class="text-red-600 font-bold text-sm">299.-</span></div>
+                        <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm font-medium">ชุดปลาดอล์ลี่</span><span class="text-red-600 font-bold text-sm">259.-</span></div>
+                        <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm font-medium" id="item-pork-name">ชุดหมูล้วน</span><span class="text-red-600 font-bold text-sm">259.-</span></div>
+                    </div>
+                </div>
+            </div>
 
-    const img = document.createElement('img');
-    img.src = `${i}.jpg`;
-    img.alt = `หน้า ${i}`;
+            <!-- สั่งเพิ่ม (Add-ons) -->
+            <h3 class="text-md font-bold text-gray-800 mt-6 mb-3 flex items-center">
+                <span class="w-1 h-4 bg-orange-400 rounded-full mr-2"></span>
+                <span id="title-extras">สั่งเพิ่ม (Add-ons)</span>
+            </h3>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เพิ่มหมู</span><span class="text-gray-600 font-semibold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เพิ่มหมึก</span><span class="text-gray-600 font-semibold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เพิ่มกุ้ง</span><span class="text-gray-600 font-semibold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เพิ่มปลา</span><span class="text-gray-600 font-semibold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm" id="add-veg">เพิ่มชุดผัก</span><span class="text-gray-600 font-semibold text-sm">69.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm" id="add-tofu">เพิ่มเต้าหู้ไข่</span><span class="text-gray-600 font-semibold text-sm">25.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm" id="add-mushroom">เพิ่มเห็ดเข็มทอง</span><span class="text-gray-600 font-semibold text-sm">25.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เพิ่มวุ้นเส้น</span><span class="text-gray-600 font-semibold text-sm">25.-</span></div>
+                </div>
+            </div>
+        </section>
 
-    page.appendChild(img);
-    container.appendChild(page);
-  }
+        <!-- ลาบ-ลวกจิ้ม-นึ่ง -->
+        <section id="boiled" class="px-4 pt-10">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-teal-500 rounded-full mr-2"></span>
+                <span>เมนูลาบ-ลวกจิ้ม-นึ่ง</span>
+            </h2>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ลาบปลา(นิล-บึก-คัง)</span><span class="text-red-600 font-bold text-sm">149-179.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ลาบหมู</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ลาบทะเล</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลาคังลวกจิ้ม</span><span class="text-red-600 font-bold text-sm">179.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลาลวกจิ้ม (บึก-ดอร์ลี่)</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมึกลวกลวกจิ้ม</span><span class="text-red-600 font-bold text-sm">179.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กุ้งลวกจิ้ม</span><span class="text-red-600 font-bold text-sm">179.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ทะเลรวมลวกลวกจิ้ม</span><span class="text-red-600 font-bold text-sm">299.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หอยแมลงภู่ลวกจิ้ม</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไส้ตัน/กระเพาะลวกจิ้ม</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมูยอลวกลวกจิ้ม</span><span class="text-red-600 font-bold text-sm">129.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผักรวม+เห็ดลวก</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลานึ่งมะนาว(นิล-กระพง) (ตามขนาด)</span><span class="text-red-600 font-bold text-sm">259-389.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลานึ่งซีอิ้ว(นิล-กระพง) (ตามขนาด)</span><span class="text-red-600 font-bold text-sm">259-389.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมึกนึ่งมะนาว</span><span class="text-red-600 font-bold text-sm">259.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ทะเลรวมนึ่งมะนาว</span><span class="text-red-600 font-bold text-sm">299.-</span></div>
+                </div>
+                <div class="bg-orange-50 rounded-lg p-3 mt-2 border border-orange-100">
+                    <p class="text-[11px] text-orange-600 font-medium">หมายเหตุ : ลูกค้าอยากทานปลาทับทิม ปลาช่อนสั่งจองล่วงหน้าได้นะคะ <br>ขออภัย ประเภททอด นึ่งใช้เวลาในการทำอยากทานอร่อยรอหน่อยนะคะ</p>
+                </div>
+            </div>
+        </section>
 
-  function scrollToPage(pageNumber) {
-    const pages = document.querySelectorAll('.page');
-    if (pages[pageNumber - 1]) {
-      pages[pageNumber - 1].scrollIntoView({ behavior: 'smooth' });
-    }
-  }
+        <!-- ต้ม แกง -->
+        <section id="soup" class="px-4 pt-10">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-yellow-500 rounded-full mr-2"></span>
+                <span>เมนูต้ม/แกง</span>
+            </h2>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">แกงส้มแป๊ะซะ (นิล-ช่อน-กะพง)</span><span class="text-red-600 font-bold text-sm">299-389.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">แกงส้มกุ้ง/แกงส้มปลา</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">อ่อมกบ/อ่อมไข่อ่อน/อ่อมปลา</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้มส้มปลาคัง(ผักกระแยง)</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้มส้มกบ (ผักกระแยง)</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้มยำปลา (น้ำข้น-น้ำใส) (คัง-บึก-นิล-กระพง)</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้มยำรวม (น้ำข้น-น้ำใส)</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้มยำกุ้ง</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้มยำเห็ดรวม (น้ำข้น-น้ำใส)</span><span class="text-red-600 font-bold text-sm">180.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้มยำโป๊ะแตก</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้มยำไข่อ่อน</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้มแซบกระดูกอ่อน</span><span class="text-red-600 font-bold text-sm">180.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">แกงจืดเต้าหู้หมูสับสาหร่าย</span><span class="text-red-600 font-bold text-sm">120.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">แกงจืดกระเพาะหมู/ไส้ตันเกี่ยมฉ่าย</span><span class="text-red-600 font-bold text-sm">120.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">แกงจืดไข่ฟูหมูสับ</span><span class="text-red-600 font-bold text-sm">120.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">แกงจืดทะเล</span><span class="text-red-600 font-bold text-sm">200.-</span></div>
+                </div>
+            </div>
+        </section>
 
-  container.addEventListener('scroll', () => {
-    const scrollTop = container.scrollTop;
-    const pageHeight = window.innerHeight - 60;
-    const currentPage = Math.round(scrollTop / pageHeight) + 1;
-    pageIndicator.textContent = `${currentPage} / ${TOTAL_PAGES}`;
-  });
+        <!-- เมนูผัด -->
+        <section id="stirfry" class="px-4 pt-10">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-green-500 rounded-full mr-2"></span>
+                <span>เมนูผัด</span>
+            </h2>
+            
+            <h3 class="text-sm font-bold text-gray-600 mt-4 mb-2 bg-gray-100 inline-block px-3 py-1 rounded">ผัดรสจัด</h3>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผัดเผ็ดไข่อ่อน</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผัดเผ็ดกบ</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผัดเผ็ดปลาบึก</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผัดเผ็ดหมูป่า</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลาผัดฉ่าบึก</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลาคังผัดฉ่า</span><span class="text-red-600 font-bold text-sm">179.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ทะเลผัดฉ่า</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไข่เหยี่ยวม้ากระเพรากรอบ</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไข่เหยี่ยวม้าผัดขี้เมา</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กระเพราไก่ / หมูชิ้น / หมูสับ</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กระเพราทะเล</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมู / ไก่ ผัดพริกไทยดำ</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลาหมึกพริกไทยดำ</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กุ้ง / หมูกรอบ คั่วพริก</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                </div>
+            </div>
 
-  window.addEventListener('load', () => {
-    const nav = document.querySelector('nav');
+            <h3 class="text-sm font-bold text-gray-600 mt-6 mb-2 bg-gray-100 inline-block px-3 py-1 rounded">ผัดรสกลางๆ</h3>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ห่อหมกทะเลผัดแห้ง</span><span class="text-red-600 font-bold text-sm">189.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมูชิ้น / ไก่ ผัดพริกแกง</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หอยลายผัดพริกเผา</span><span class="text-red-600 font-bold text-sm">129.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ทะเลผัดพริกเผา</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไก่ผัดเม็ดมะม่วง / ไก่ผัดขิง</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผัดพริกแกงกระดูกอ่อน</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมึกผัดพริกแกง</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ออส่วนกุ้ง / ออส่วนหอยนางรม</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลานิลผัดคื่นฉ้าย</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลากระพงผัดคื่นฉ่าย</span><span class="text-red-600 font-bold text-sm">179.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เต้าหู้ผัดกุ้งสามรส</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เต้าหู้ทรงเครื่อง</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เห็ดเข็มผัดกุ้ง</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เห็ดสามอย่างน้ำมันหอย</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เห็ดรวมผัดหมูชิ้น</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เห็ดรวมผัดกุ้ง</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กุ้ง-หมึกผัดผงกระหรี่</span><span class="text-red-600 font-bold text-sm">189.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมึกผัดผงกระหรี่</span><span class="text-red-600 font-bold text-sm">179.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมึกผัดเห็ดหอมน้ำมันหอย</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมึกผัดไข่เค็ม</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เปรี้ยวหวานไก่</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เปรี้ยวหวานกุ้ง</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กระเพาะผัดเกี้ยมฉ่าย / ไส้ตันผัดเกี้ยมฉ่าย</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมูผัดน้ำมันหอยเห็ดหอม</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไข่เค็มหมูสับ</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                </div>
+            </div>
 
-    // ✅ เพิ่มแถบเงาด้านขวา
-    const fade = document.createElement('div');
-    fade.className = 'nav-fade-right';
-    document.querySelector('header').appendChild(fade);
+            <h3 class="text-sm font-bold text-gray-600 mt-6 mb-2 bg-gray-100 inline-block px-3 py-1 rounded">เมนูผัดผัก</h3>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">บล็อคโคลี่ผัดกุ้ง/ผัดหมูชิ้น</span><span class="text-red-600 font-bold text-sm">149-159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หน่อไม้ฝรั่งผัดกุ้ง/ผัดหมูชิ้น</span><span class="text-red-600 font-bold text-sm">149-159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">คะน้า/ผักบุ้ง/กุ๋ยฉ้ายขาว ปลาเค็มหรือหมูกรอบ</span><span class="text-red-600 font-bold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">คะน้า/ผักบุ้ง/กุ๋ยช่ายไฟแดง</span><span class="text-red-600 font-bold text-sm">79.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้นอ่อนทานตะวันไฟแดง</span><span class="text-red-600 font-bold text-sm">79.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้นอ่อนทานตะวันหมูกรอบ</span><span class="text-red-600 font-bold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ต้นอ่อนผัดเต้าหู้หมูสับ</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กระหล่ำผัดน้ำปลา</span><span class="text-red-600 font-bold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผัดผักรวมหมูชิ้น</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผัดผักรวมกุ้งสด</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผัดโป๊ยเซียนทะเล</span><span class="text-red-600 font-bold text-sm">169.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">มะระผัดไข่ / ถั่วงอกผัดเต้าหู้</span><span class="text-red-600 font-bold text-sm">89.-</span></div>
+                </div>
+            </div>
+        </section>
 
-    // ✅ ปัดเมนูอัตโนมัติขณะโหลดเพื่อดึงความสนใจ
-    setTimeout(() => {
-      nav.scrollTo({ left: 100, behavior: 'smooth' });
-    }, 500);
+        <!-- ยำ / ส้มตำ -->
+        <section id="spicysalad" class="px-4 pt-10">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-red-400 rounded-full mr-2"></span>
+                <span>เมนูยำ และ ตำแซ่บๆ</span>
+            </h2>
+            
+            <h3 class="text-sm font-bold text-gray-600 mt-4 mb-2 bg-gray-100 inline-block px-3 py-1 rounded">เมนูยำ</h3>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลาลุยสวน / ปลาสมุนไพร (นิลชุดเล็ก 189)</span><span class="text-red-600 font-bold text-sm">299-389.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำปลาเต๋ามะม่วง</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำเห็ดกรอบ / ยำสามกรอบ / ยำบุ้งกรอบ</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำไส้ตัน / ยำกระเพาะหมู</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">พล่ากุ้ง / ยำตระไคร้กุ้งสด</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำคะน้า / ยำเห็ดเข็มทอง / ยำเห็ดรวม</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำรวมมิตร</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำถั่วพู / ยำวุ้นเส้นรวม / ยำมาม่ารวม</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำวุ้นเส้นหมูสับ</span><span class="text-red-600 font-bold text-sm">129.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำหมูยอ / ยำกุนเชียง / ยำกุนเชียงไข่เค็ม</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำไข่เค็ม</span><span class="text-red-600 font-bold text-sm">89.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำเกี้ยมฉ่ายไข่เค็ม</span><span class="text-red-600 font-bold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำไข่ดาว / หมูมะนาว</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กุ้งแช่น้ำปลา / ปูอัด-วาซาบิ</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำไข่เยี่ยวม้า / ไข่เยี่ยวม้าทรงเครื่อง</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ยำหอยนางรม / หอยนางรมทรงเครื่อง</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                </div>
+            </div>
 
-    setTimeout(() => {
-      nav.scrollTo({ left: 0, behavior: 'smooth' });
-    }, 1500);
-  });
-</script>
+            <h3 class="text-sm font-bold text-gray-600 mt-6 mb-2 bg-gray-100 inline-block px-3 py-1 rounded">เมนูตำแซ่บๆ</h3>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ตำถาด / ตำทะเลล้วน</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ตำผลไม้/ตำผลไม้กุงสด</span><span class="text-red-600 font-bold text-sm">129-149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ตำกุ้งสด</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ส้มตำทะเล / ส้มตำกุ้งสด</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ตำหมูยอ</span><span class="text-red-600 font-bold text-sm">129.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ตำถั่วหมูกรอบ / ตำแตงไข่ต้ม</span><span class="text-red-600 font-bold text-sm">89.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ตำมั่ว / ตำไทยไข่เค็ม</span><span class="text-red-600 font-bold text-sm">69.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ตำลาว / ตำไทย / ตำแตง / ตำถั่ว / ตำข้าวปุ้น</span><span class="text-red-600 font-bold text-sm">59.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ขนมจีน</span><span class="text-red-600 font-bold text-sm">20.-</span></div>
+                </div>
+            </div>
+        </section>
 
+        <!-- เมนูทอด -->
+        <section id="fried" class="px-4 pt-10">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-amber-600 rounded-full mr-2"></span>
+                <span>เมนูทอด</span>
+            </h2>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลาสามรส/ทอดน้ำปลา/สมุนไพร (นิลชุดเล็ก 179)</span><span class="text-red-600 font-bold text-sm">259-389.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลาทอดกระเทียม (นิลชุดเล็ก 139)</span><span class="text-red-600 font-bold text-sm">259-389.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปลาบึกทอดกระเทียม / ปลาแดดเดียว</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กบทอดกระเทียม / ไส้ตันทอด / กระเพาะทอด</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เอ็นไก่ทอด / ปีกไก่ทอด</span><span class="text-red-600 font-bold text-sm">129.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">นักเก็ตไก่ / ไก่ป๊อบ / ไก่กรอบ / ไก่จ้อ</span><span class="text-red-600 font-bold text-sm">119.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไก่ทอดกระเทียม</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กุ้งชุบแป้งทอด</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เฟรนฟราย</span><span class="text-red-600 font-bold text-sm">69.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เห็ดเข็มทองชุปแป้งทอด</span><span class="text-red-600 font-bold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมูทอดกระเทียม / หมูทอดงา</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">แหนมซี่โครง</span><span class="text-red-600 font-bold text-sm">149.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมูยอทอด / ทอดมันปลา</span><span class="text-red-600 font-bold text-sm">119.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">กุนเชียงทอด</span><span class="text-red-600 font-bold text-sm">89.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">หมึกทอดกระเทียม</span><span class="text-red-600 font-bold text-sm">179.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไข่เจียวธรรมดา</span><span class="text-red-600 font-bold text-sm">69.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไข่เจียวหมูสับ / วุ้นเส้น</span><span class="text-red-600 font-bold text-sm">79.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไข่เจียวปู</span><span class="text-red-600 font-bold text-sm">99.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เม็ดมะม่วงทอด</span><span class="text-red-600 font-bold text-sm">89.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ถั่วทอด</span><span class="text-red-600 font-bold text-sm">79.-</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ข้าว จานเดียว -->
+        <section id="rice" class="px-4 pt-10">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-stone-500 rounded-full mr-2"></span>
+                <span>เมนูข้าว-อาหารจานเดียว</span>
+            </h2>
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวผัดปู (จานใหญ่)</span><span class="text-red-600 font-bold text-sm">179.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวผัดจานใหญ่ (หมู-กุ้ง-รวม)</span><span class="text-red-600 font-bold text-sm">159.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวหมึกผงกระหรี่</span><span class="text-red-600 font-bold text-sm">70.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวไข่เจียวหมูสับ/ปู</span><span class="text-red-600 font-bold text-sm">65-69.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวคะน้าหมูกรอบ / ข้าวกระเพราหมูกรอบ</span><span class="text-red-600 font-bold text-sm">65.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวกระเพราหมู/ทะเล</span><span class="text-red-600 font-bold text-sm">65.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวผัดหมู/กุ้ง/ปู</span><span class="text-red-600 font-bold text-sm">65.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวไข่ม้ากระเพรากรอบ</span><span class="text-red-600 font-bold text-sm">65.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวหมูเห็ดหอมน้ำมันหอย</span><span class="text-red-600 font-bold text-sm">65.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวต้มทรงเครื่อง/หมู/ปลา</span><span class="text-red-600 font-bold text-sm">55.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวโถ</span><span class="text-red-600 font-bold text-sm">65.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวสวยถ้วย</span><span class="text-red-600 font-bold text-sm">15.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ข้าวต้มข้าวกล้องลูกเดือย</span><span class="text-red-600 font-bold text-sm">9.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm text-gray-500">+ เพิ่มไข่ดาว / ไข่เจียว</span><span class="text-red-600 font-bold text-sm">+10.-</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- สลัด ผลไม้ ของหวาน -->
+        <section id="desserts" class="px-4 pt-10">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-pink-500 rounded-full mr-2"></span>
+                <span>เมนูสลัด ผลไม้ ขนมหวาน และเครื่องดื่ม</span>
+            </h2>
+
+            <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <p class="font-medium text-gray-700 text-sm" id="drink-water">น้ำเปล่า</p>
+                    <p class="text-red-600 font-bold text-sm">15.-</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <p class="font-medium text-gray-700 text-sm" id="drink-soda">น้ำอัดลม</p>
+                    <p class="text-red-600 font-bold text-sm">20.-</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
+                <div class="grid grid-cols-1 divide-y divide-gray-50 px-3">
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">สลัด (กุ้ง-ปูอัด-ปลา-ไก่ทอด)</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">สลัดผลไม้</span><span class="text-red-600 font-bold text-sm">139.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">สลัดผัก</span><span class="text-red-600 font-bold text-sm">89.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ผลไม้รวม</span><span class="text-red-600 font-bold text-sm">129.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ปังปิ้งเนยนม / โอวัลติน</span><span class="text-red-600 font-bold text-sm">35.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">ไอศครีม (วลิลา/ช็อคโกแลต/สตอเบอรี่)</span><span class="text-red-600 font-bold text-sm">35-50.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เค้ก</span><span class="text-red-600 font-bold text-sm">35-60.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เฉาก๊วยโบราณ</span><span class="text-red-600 font-bold text-sm">30.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เฉาก๊วยทรงเครื่อง / นมสด</span><span class="text-red-600 font-bold text-sm">35.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เต้าฮวยนมสด</span><span class="text-red-600 font-bold text-sm">25.-</span></div>
+                    <div class="py-2 flex justify-between items-center"><span class="text-gray-700 text-sm">เต้าฮวยฟรุ๊ตสลัด</span><span class="text-red-600 font-bold text-sm">30.-</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ห้องจัดเลี้ยง -->
+        <section id="info" class="px-4 pt-10 pb-4">
+            <div class="bg-gray-800 text-white rounded-2xl p-5 shadow-lg relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-gray-700 rounded-full opacity-50"></div>
+                <h2 class="text-lg font-bold mb-3 relative z-10 flex items-center">เงื่อนไขและอัตราค่าห้องจัดเลี้ยง</h2>
+                <ul class="text-xs space-y-2 text-gray-300 relative z-10 list-disc pl-4">
+                    <li><strong class="text-white">เวลาให้บริการ:</strong> 12.00-16.00น. และ 17.00-22.00น.</li>
+                    <li><strong class="text-white">อัตราค่าบริการ:</strong> ชม.แรก 450 บาท (ชม.ต่อไป 100 บาท)</li>
+                    <li>หากเข้าก่อน/ออกหลังเวลาที่กำหนด ทางร้านคิดราคาเพิ่ม ชม.ละ 100 บาท</li>
+                    <li>ลูกค้านำเหล้ามาไม่คิดค่าเปิด แต่มิกเซอร์และเครื่องดื่มอื่นๆ ขอเป็นของทางร้าน (หากนำมาคิดค่าเปิดลังละ 180 บาท)</li>
+                    <li>ห้องจัดเลี้ยง ประชุม สัมมนา อัตราค่าบริการและเงื่อนไขอื่นๆตามตกลงได้</li>
+                    <li>ขอความร่วมมืองดลงโปรแกรมใดๆใน Note Book ร้องเพลงจาก Youtube เท่านั้น</li>
+                    <li>ลูกค้าทำไมโครโฟนหลุดมือ หล่นแตกหักชำรุด คิดค่าเสียหาย 3,500 บาท/ชุด (ทางร้านจะยกชุดที่เสียหายให้ลูกค้ากลับบ้านด้วย)</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 p-8 text-center pb-12">
+        <p class="text-sm text-gray-500 mb-1 font-medium" id="footer-welcome">ร้านจิ้มจุ่ม แจ่วฮ้อน ยินดีต้อนรับครับ</p>
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest" id="footer-note">Enjoy your authentic Thai hot pot</p>
+    </footer>
+
+    <script>
+        const translations = {
+            th: {
+                shopName: "สวนอาหารบ้านปอแก้ว",
+                shopDesc: "ความอร่อยระดับตำนาน คิดสูตรเมื่อวานบอกตำนานไว้ก่อน",
+                soupJJTitle: "สูตรจิ้มจุ่ม",
+                soupJJDesc: "น้ำซุปขิง หอมสมุนไพร รสชาตินุ่มนวล",
+                soupJHTitle: "สูตรแจ่วฮ้อน",
+                soupJHDesc: "มะกรูด โหระพา พริก รสจัดจ้านถึงใจ",
+                titleSets: "ชุดสุดคุ้ม (Main Sets)",
+                titleExtras: "สั่งเพิ่ม (Add-ons)",
+                itemMixedName: "ชุดรวมมิตร",
+                itemMixedDesc: "ครบจบในชุดเดียว",
+                itemFishName: "ชุดปลาคัง/ปลากระพง",
+                itemFishDesc: "เนื้อปลาสดคุณภาพดี",
+                itemPorkName: "ชุดหมูล้วน",
+                addVeg: "เพิ่มชุดผักสด",
+                addTofu: "เพิ่มเต้าหู้ไข่",
+                addMushroom: "เพิ่มเห็ดเข็มทอง",
+                drinkWater: "น้ำเปล่า",
+                drinkSoda: "น้ำอัดลม",
+                footerWelcome: "ร้านจิ้มจุ่ม แจ่วฮ้อน ยินดีต้อนรับครับ",
+                footerNote: "สัมผัสรสชาติไทยแท้ที่นี่"
+            },
+            en: {
+                shopName: "Jim-Jum & Jaew-Hon",
+                shopDesc: "Legendary Thai Hot Pot - Our secret recipes.",
+                soupJJTitle: "Jim-Jum Style",
+                soupJJDesc: "Ginger-based herbal soup, mild & aromatic.",
+                soupJHTitle: "Jaew-Hon Style",
+                soupJHDesc: "Lime leaves, basil, chili - spicy & bold.",
+                titleSets: "Main Sets",
+                titleExtras: "Add-ons",
+                itemMixedName: "Mixed Combo Set",
+                itemMixedDesc: "Pork, Beef, Seafood & Veggies",
+                itemFishName: "Premium Fish Set",
+                itemFishDesc: "Fresh sliced fish",
+                itemPorkName: "Pork Lover Set",
+                addVeg: "Extra Vegetable Set",
+                addTofu: "Extra Egg Tofu",
+                addMushroom: "Extra Enoki Mushroom",
+                drinkWater: "Drinking Water",
+                drinkSoda: "Soft Drinks",
+                footerWelcome: "Welcome to our shop!",
+                footerNote: "Enjoy your authentic Thai hot pot"
+            }
+        };
+
+        function setLanguage(lang) {
+            const data = translations[lang];
+            
+            // Update Text Content where applicable (Keeping full menu in Thai as standard)
+            document.getElementById('shop-name').textContent = data.shopName;
+            document.getElementById('shop-desc').textContent = data.shopDesc;
+            document.getElementById('soup-jj-title').textContent = data.soupJJTitle;
+            document.getElementById('soup-jj-desc').textContent = data.soupJJDesc;
+            document.getElementById('soup-jh-title').textContent = data.soupJHTitle;
+            document.getElementById('soup-jh-desc').textContent = data.soupJHDesc;
+            document.getElementById('title-sets').textContent = data.titleSets;
+            document.getElementById('title-extras').textContent = data.titleExtras;
+            document.getElementById('item-mixed-name').textContent = data.itemMixedName;
+            document.getElementById('item-mixed-desc').textContent = data.itemMixedDesc;
+            document.getElementById('item-fish-name').textContent = data.itemFishName;
+            document.getElementById('item-fish-desc').textContent = data.itemFishDesc;
+            document.getElementById('item-pork-name').textContent = data.itemPorkName;
+            document.getElementById('add-veg').textContent = data.addVeg;
+            document.getElementById('add-tofu').textContent = data.addTofu;
+            document.getElementById('add-mushroom').textContent = data.addMushroom;
+            document.getElementById('drink-water').textContent = data.drinkWater;
+            document.getElementById('drink-soda').textContent = data.drinkSoda;
+            document.getElementById('footer-welcome').textContent = data.footerWelcome;
+            document.getElementById('footer-note').textContent = data.footerNote;
+
+            // Update UI State
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('text-white');
+            });
+            document.getElementById('lang-' + lang).classList.add('active');
+            document.getElementById('lang-' + lang).classList.remove('text-white');
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            const headerOffset = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        }
+
+        window.addEventListener('scroll', () => {
+            const sections = ['sets', 'boiled', 'soup', 'stirfry', 'spicysalad', 'fried', 'rice', 'desserts', 'info'];
+            let current = '';
+
+            sections.forEach(section => {
+                const el = document.getElementById(section);
+                if(el) {
+                    const sectionTop = el.offsetTop;
+                    if (pageYOffset >= sectionTop - 120) {
+                        current = section;
+                    }
+                }
+            });
+
+            if (current) {
+                const tabs = document.querySelectorAll('.tab-btn');
+                tabs.forEach(btn => {
+                    btn.classList.remove('active-tab');
+                    btn.classList.add('text-gray-400');
+                    btn.classList.remove('font-bold');
+                });
+                
+                const activeBtn = document.querySelector(`button[onclick="scrollToSection('${current}')"]`);
+                if(activeBtn) {
+                    activeBtn.classList.add('active-tab');
+                    activeBtn.classList.remove('text-gray-400');
+                    
+                    // Center the active tab in scroll view
+                    const navContainer = document.getElementById('nav-tabs');
+                    const scrollLeft = activeBtn.offsetLeft - (navContainer.offsetWidth / 2) + (activeBtn.offsetWidth / 2);
+                    navContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
