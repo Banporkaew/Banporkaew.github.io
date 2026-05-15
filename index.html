@@ -499,44 +499,6 @@
                     </a>
                 </div>
             </div>
-
-            <div class="grid gap-4 sm:grid-cols-2 bg-slate-50 rounded-3xl p-4 border border-gray-200 shadow-sm">
-                <a href="https://www.google.com/maps/search/?api=1&query=สวนอาหารบ้านปอแก้ว" target="_blank" rel="noopener" class="block rounded-3xl bg-white p-4 shadow-sm hover:shadow-md transition">
-                    <div class="flex items-center justify-between mb-3">
-                        <div>
-                            <p class="text-xs uppercase tracking-widest text-gray-500">Google</p>
-                            <p class="text-base font-bold text-gray-800">คะแนนรีวิว</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-xl font-bold text-amber-500">4.7</p>
-                            <p class="text-xs text-gray-500">จาก 128 รีวิว</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center text-amber-500 gap-1">
-                        <span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span>
-                        <span class="text-xs text-gray-500">คะแนนจาก Google Maps</span>
-                    </div>
-                </a>
-                <a href="https://www.wongnai.com/restaurants/156836GB-%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%AD%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7" target="_blank" rel="noopener" class="block rounded-3xl bg-white p-4 shadow-sm hover:shadow-md transition">
-                    <div class="flex items-center justify-between mb-3">
-                        <div>
-                            <p class="text-xs uppercase tracking-widest text-gray-500">Wongnai</p>
-                            <p class="text-base font-bold text-gray-800">คะแนนรีวิว</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-xl font-bold text-amber-500">4.5</p>
-                            <p class="text-xs text-gray-500">จาก 97 รีวิว</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center text-amber-500 gap-1">
-                        <span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span>
-                        <span class="text-xs text-gray-500">คะแนนจาก Wongnai</span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="text-xs text-center text-gray-500">ข้อมูลคะแนนรีวิวเป็นข้อมูลตัวอย่าง สามารถแก้ไขเป็นค่าจริงได้ตามข้อมูลล่าสุดจาก Google และ Wongnai</div>
-
             <div class="flex justify-center items-center gap-4 pt-4">
                 <a href="https://www.facebook.com/Banporkeaw/?locale=th_TH" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition">
                     <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor" aria-hidden="true">
@@ -603,7 +565,92 @@
                 }
             }
         });
+
+        function renderGoogleStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating - fullStars >= 0.5;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+            let stars = '';
+            for (let i = 0; i < fullStars; i++) stars += '★';
+            if (halfStar) stars += '½';
+            for (let i = 0; i < emptyStars; i++) stars += '☆';
+            return stars;
+        }
+
+        function initGoogleReview() {
+            const ratingEl = document.getElementById('google-rating');
+            const reviewCountEl = document.getElementById('google-review-count');
+            const starsEl = document.getElementById('google-stars');
+            const statusEl = document.getElementById('google-review-status');
+            const statusSmallEl = document.getElementById('google-review-status-small');
+            const reviewListEl = document.getElementById('google-review-list');
+
+            const placeQuery = 'สวนอาหารบ้านปอแก้ว';
+            const request = {
+                query: placeQuery,
+                fields: ['place_id']
+            };
+
+            const service = new google.maps.places.PlacesService(document.createElement('div'));
+            service.findPlaceFromQuery(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK && results && results.length > 0) {
+                    const placeId = results[0].place_id;
+                    const detailRequest = {
+                        placeId,
+                        fields: ['name', 'rating', 'user_ratings_total', 'reviews']
+                    };
+
+                    service.getDetails(detailRequest, (details, detailsStatus) => {
+                        if (detailsStatus === google.maps.places.PlacesServiceStatus.OK && details) {
+                            const rating = details.rating || 0;
+                            const reviewCount = details.user_ratings_total || 0;
+                            const reviews = details.reviews || [];
+
+                            ratingEl.textContent = rating.toFixed(1);
+                            reviewCountEl.textContent = `จาก ${reviewCount} รีวิว`;
+                            starsEl.textContent = renderGoogleStars(rating);
+                            statusEl.textContent = `อัปเดตล่าสุดจาก Google Maps`;
+                            statusSmallEl.textContent = `แสดง ${Math.min(reviews.length, 3)} รีวิวล่าสุด`;
+
+                            reviewListEl.innerHTML = '';
+                            if (reviews.length > 0) {
+                                reviews.slice(0, 3).forEach(review => {
+                                    const reviewItem = document.createElement('div');
+                                    reviewItem.className = 'rounded-2xl bg-white p-4 border border-gray-100 shadow-sm';
+                                    reviewItem.innerHTML = `
+                                        <div class="flex items-center justify-between mb-2">
+                                            <p class="text-sm font-semibold text-gray-800">${review.author_name || 'ผู้รีวิว'}</p>
+                                            <p class="text-sm text-amber-500">${renderGoogleStars(review.rating || 0)}</p>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mb-2">${new Date(review.time * 1000).toLocaleDateString('th-TH', { year:'numeric', month:'short', day:'numeric' })}</p>
+                                        <p class="text-sm text-gray-700 leading-relaxed">${review.text || 'ไม่มีข้อความรีวิว'}</p>
+                                    `;
+                                    reviewListEl.appendChild(reviewItem);
+                                });
+                            } else {
+                                reviewListEl.innerHTML = '<div class="rounded-2xl bg-white p-3 border border-gray-100 shadow-sm"><p class="text-sm text-gray-700">ไม่มีรีวิวจาก Google ให้แสดงในขณะนี้</p></div>';
+                            }
+                        } else {
+                            ratingEl.textContent = '-';
+                            reviewCountEl.textContent = 'ไม่สามารถโหลดข้อมูลได้';
+                            starsEl.textContent = '☆☆☆☆☆';
+                            statusEl.textContent = 'ไม่สามารถเรียก Google Places API ได้';
+                            statusSmallEl.textContent = 'รีวิวไม่พร้อมใช้งาน';
+                            reviewListEl.innerHTML = '<div class="rounded-2xl bg-white p-3 border border-gray-100 shadow-sm"><p class="text-sm text-gray-700">ไม่สามารถโหลดรีวิวจาก Google ได้</p></div>';
+                        }
+                    });
+                } else {
+                    ratingEl.textContent = '-';
+                    reviewCountEl.textContent = 'ไม่สามารถโหลดข้อมูลได้';
+                    starsEl.textContent = '☆☆☆☆☆';
+                    statusEl.textContent = 'กรุณาตรวจสอบ Google API key หรือชื่อร้านในระบบ';
+                    statusSmallEl.textContent = 'รีวิวไม่พร้อมใช้งาน';
+                    reviewListEl.innerHTML = '<div class="rounded-2xl bg-white p-3 border border-gray-100 shadow-sm"><p class="text-sm text-gray-700">ไม่พบร้านใน Google Places</p></div>';
+                }
+            });
+        }
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places&callback=initGoogleReview" async defer></script>
 
 </body>
 </html>
