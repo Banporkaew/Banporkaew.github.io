@@ -1,0 +1,62 @@
+body { font-family: 'Kanit', 'Inter', sans-serif; background-color: #fdfcfb; color: #333; }
+.hero-gradient { background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%); }
+.category-scroll::-webkit-scrollbar { display: none; }
+.sticky-tabs { position: sticky; top: 0; z-index: 40; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+.active-tab { color: #dc2626; border-bottom: 3px solid #dc2626; font-weight: 600; }
+.lang-btn.active { background-color: #dc2626; color: white; border-color: #dc2626; }
+.menu-card { transition: transform 0.2s; }
+.menu-card:active { transform: scale(0.98); }
+
+/* เพิ่มส่วนนี้เพื่อให้รายการอาหารแถวคู่มีสีเทาอ่อน */
+.menu-list-container > div:nth-child(even) {
+    background-color: #f7f7f7; /* สีเทาจางๆ */
+}
+/* เพิ่มความโค้งให้ตัวแรกและตัวสุดท้ายเพื่อให้เข้ากับกรอบ */
+.menu-list-container > div:first-child { border-radius: 1rem 1rem 0 0; }
+.menu-list-container > div:last-child { border-radius: 0 0 1rem 1rem; }
+
+/* Recommended Menu */
+.rec-track { display: grid; grid-template-columns: 1fr; gap: 0; }
+.rec-track::-webkit-scrollbar { display: none; }
+.rec-card { border-radius: 0; overflow: hidden; background: white; position: relative; display: flex; border-bottom: 1px solid #f0f0f0; padding: 1rem; }
+.rec-card:first-child { border-radius: 1.25rem 1.25rem 0 0; }
+.rec-card:last-child { border-radius: 0 0 1.25rem 1.25rem; border-bottom: none; }
+.rec-card img { display: none; }
+.rec-card > div { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.rec-badge { position: absolute; top: 12px; right: 12px; background: #dc2626; color: white; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+/* Menu item thumbnails */
+.menu-item-left { display: flex; align-items: center; gap: 0.75rem; }
+.menu-item-thumb { width: 3rem; height: 3rem; border-radius: 0.5rem; object-fit: cover; flex-shrink: 0; }
+
+/* Accessibility and touch-friendly improvements */
+:root { --base-font-size: 16px; }
+body { font-size: var(--base-font-size); line-height: 1.45; }
+
+.tab-btn { padding: 0.5rem 0.75rem; min-width: 84px; border-radius: 999px; font-size: 0.95rem; touch-action: manipulation; }
+.tab-btn:focus { outline: 3px solid rgba(220,38,38,0.12); outline-offset: 2px; }
+#nav-tabs { -webkit-overflow-scrolling: touch; scroll-padding: 1rem; padding-bottom: 0.25rem; }
+
+/* Make list rows easier to tap */
+.grid .py-2.flex.justify-between.items-center { padding-top: 0.7rem; padding-bottom: 0.7rem; }
+
+/* Mobile specific adjustments */
+@media (max-width: 640px) {
+    :root { --base-font-size: 17px; }
+    .menu-item-thumb { width: 3rem; height: 3rem; }
+    .menu-card { padding: 0.75rem; }
+    .menu-card img { width: 96px; height: 96px; object-fit: cover; }
+    .tab-btn { padding: 0.65rem 1rem; font-size: 1rem; min-width: 100px; }
+    .rec-card { padding: 0.75rem; }
+    main { padding-left: 1rem; padding-right: 1rem; }
+}
+
+/* iPad / small tablet adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+    :root { --base-font-size: 18px; }
+    .menu-card img { width: 120px; height: 120px; object-fit: cover; }
+    .tab-btn { font-size: 1.05rem; min-width: 120px; }
+}
+
+/* Improve contrast for better readability */
+.menu-card h4, .menu-card p, .grid span.text-gray-700 { color: #222; }
+
