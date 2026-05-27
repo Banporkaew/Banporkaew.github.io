@@ -60,3 +60,11 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
 /* Improve contrast for better readability */
 .menu-card h4, .menu-card p, .grid span.text-gray-700 { color: #222; }
 
+/* Fix overlapping nav labels on very small screens */
+@media (max-width: 420px) {
+    #nav-tabs { flex-wrap: wrap; gap: 0.5rem; }
+    #nav-tabs { justify-content: space-between; }
+    .tab-btn { white-space: normal !important; flex: 0 0 48%; text-align: center; padding: 0.6rem 0.5rem; }
+    .tab-btn + .tab-btn { margin-left: 0; }
+}
+
