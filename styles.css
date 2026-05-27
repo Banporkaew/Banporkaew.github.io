@@ -67,3 +67,56 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
 .category-scroll { -webkit-overflow-scrolling: touch; }
 .tab-btn { display: inline-flex !important; align-items: center; justify-content: center; white-space: nowrap !important; flex: 0 0 auto !important; }
 
+/* Scroll indicator gradient fade effect */
+.scroll-fade { position: relative; }
+.scroll-fade::after { 
+  content: ''; 
+  position: absolute; 
+  right: 0; 
+  top: 0; 
+  bottom: 0; 
+  width: 40px; 
+  background: linear-gradient(to right, transparent, rgba(253, 252, 251, 1)); 
+  pointer-events: none; 
+  z-index: 10;
+}
+.scroll-fade::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(to left, transparent, rgba(253, 252, 251, 1));
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Print-friendly styles */
+@media print {
+  /* Hide interactive elements */
+  header, nav, #dark-mode-toggle, .sticky-tabs, main > section:first-child,
+  .rec-track, #rec-loading, #rec-error, .rec-card, 
+  button, [onclick] { display: none !important; }
+  
+  /* Optimize layout for print */
+  html, body { background: white; color: black; font-size: 12pt; line-height: 1.5; }
+  body { margin: 0; padding: 0; }
+  * { box-shadow: none !important; }
+  
+  /* Keep only content sections */
+  section { page-break-inside: avoid; margin: 0 0 1.5cm 0; }
+  .menu-card { page-break-inside: avoid; }
+  h2 { page-break-after: avoid; margin-top: 1.5cm; margin-bottom: 0.5cm; }
+  p { orphans: 3; widows: 3; }
+  
+  /* Print images if available */
+  .menu-card img { display: block !important; max-width: 100%; }
+  
+  /* Adjust spacing for print */
+  main { max-width: 100%; padding: 1cm; }
+  .menu-card { padding: 0.5cm; margin-bottom: 0.5cm; border: 1px solid #ccc; }
+  
+  /* Hide scrollable containers indicators */
+  .category-scroll::before, .category-scroll::after { display: none !important; }
+}

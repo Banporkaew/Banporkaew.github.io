@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="สวนอาหารบ้านปอแก้ว - ความอร่อยระดับตำนาน คิดสูตรเมื่อวานบอกตำนานไว้ก่อน ร้านอาหารไทยแท้">
+    <meta property="og:title" content="สวนอาหารบ้านปอแก้ว | Menu">
+    <meta property="og:description" content="ความอร่อยระดับตำนาน คิดสูตรเมื่อวานบอกตำนานไว้ก่อน">
+    <meta property="og:image" content="bg.jpg">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#dc2626">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%23dc2626'>🍲</text></svg>">
     <title>สวนอาหารบ้านปอแก้ว | Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -29,19 +36,19 @@
     </header>
 
     <nav class="sticky-tabs border-b border-gray-200 px-4">
-        <div class="flex space-x-6 overflow-x-auto category-scroll py-4" id="nav-tabs">
-            <button onclick="scrollToSection('recommended')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">แนะนำ</button>
-            <button onclick="scrollToSection('sets')" class="tab-btn active-tab whitespace-nowrap text-sm transition-all" id="tab-sets">ชุดจิ้มจุ่ม/แจ่วฮ้อน</button>
-            <button onclick="scrollToSection('boiled')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ลาบ/ลวกจิ้ม/นึ่ง</button>
-            <button onclick="scrollToSection('soup')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ต้ม/แกง</button>
-            <button onclick="scrollToSection('stirfry')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">เมนูผัด</button>
-            <button onclick="scrollToSection('spicysalad')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ยำ</button>
-			<button onclick="scrollToSection('somtum')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ส้มตำ</button>
-            <button onclick="scrollToSection('fried')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">เมนูทอด</button>
-            <button onclick="scrollToSection('rice')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">จานเดียว</button>
-            <button onclick="scrollToSection('desserts')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">สลัด/ของหวาน</button>
-			<button onclick="scrollToSection('drinks')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">เครื่องดื่ม</button>
-            <button onclick="scrollToSection('info')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium">ห้องจัดเลี้ยง</button>
+        <div class="flex space-x-6 overflow-x-auto category-scroll py-4 relative scroll-fade" id="nav-tabs">
+            <button onclick="scrollToSection('recommended')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="เมนูแนะนำ">แนะนำ</button>
+            <button onclick="scrollToSection('sets')" class="tab-btn active-tab whitespace-nowrap text-sm transition-all" id="tab-sets" aria-label="ชุดจิ้มจุ่ม และแจ่วฮ้อน">ชุดจิ้มจุ่ม/แจ่วฮ้อน</button>
+            <button onclick="scrollToSection('boiled')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="ลาบ ลวกจิ้ม นึ่ง">ลาบ/ลวกจิ้ม/นึ่ง</button>
+            <button onclick="scrollToSection('soup')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="ต้มและแกง">ต้ม/แกง</button>
+            <button onclick="scrollToSection('stirfry')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="เมนูผัด">เมนูผัด</button>
+            <button onclick="scrollToSection('spicysalad')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="เมนูยำ">ยำ</button>
+			<button onclick="scrollToSection('somtum')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="ส้มตำ">ส้มตำ</button>
+            <button onclick="scrollToSection('fried')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="เมนูทอด">เมนูทอด</button>
+            <button onclick="scrollToSection('rice')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="จานเดียว">จานเดียว</button>
+            <button onclick="scrollToSection('desserts')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="สลัดและของหวาน">สลัด/ของหวาน</button>
+			<button onclick="scrollToSection('drinks')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="เครื่องดื่ม">เครื่องดื่ม</button>
+            <button onclick="scrollToSection('info')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="ห้องจัดเลี้ยง">ห้องจัดเลี้ยง</button>
         </div>
     </nav>
 
