@@ -60,7 +60,10 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
 /* Improve contrast for better readability */
 .menu-card h4, .menu-card p, .grid span.text-gray-700 { color: #222; }
 
-/* Force nav to remain a single horizontal row and be scrollable */
-#nav-tabs { flex-wrap: nowrap; gap: 0.6rem; -webkit-overflow-scrolling: touch; }
-.tab-btn { white-space: nowrap !important; }
+/* Force nav to remain a single horizontal row and be scrollable.
+    Use high-specificity rules and !important to override device defaults (iPhone/Safari). */
+#nav-tabs { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: 0.6rem !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+#nav-tabs::-webkit-scrollbar { display: none; }
+.category-scroll { -webkit-overflow-scrolling: touch; }
+.tab-btn { display: inline-flex !important; align-items: center; justify-content: center; white-space: nowrap !important; flex: 0 0 auto !important; }
 
