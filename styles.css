@@ -1,4 +1,4 @@
-body { font-family: 'Kanit', 'Inter', sans-serif; background-color: #fdfcfb; color: #333; }
+body { font-family: 'Kanit', 'Inter', sans-serif; background-color: #fdfcfb; color: #333; scroll-behavior: smooth; }
 .hero-gradient { background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%); }
 .category-scroll::-webkit-scrollbar { display: none; }
 .sticky-tabs { position: sticky; top: 0; z-index: 40; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
