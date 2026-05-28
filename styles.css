@@ -28,9 +28,9 @@ body { font-family: 'Kanit', 'Inter', sans-serif; background-color: #fdfcfb; col
 .menu-item-left { display: flex; align-items: center; gap: 0.75rem; }
 .menu-item-thumb { width: 3rem; height: 3rem; border-radius: 0.5rem; object-fit: cover; flex-shrink: 0; }
 
-/* Cafe menu item thumbnails - same style as regular menu */
-.cafe-item-thumb { width: 4rem; height: 4rem; border-radius: 0.625rem; object-fit: cover; flex-shrink: 0; }
-.cafe-menu-item { padding: 0.5rem; gap: 0.75rem; align-items: center; }
+/* Cafe menu item thumbnails - compact for mobile */
+.cafe-item-thumb { width: 3rem; height: 3rem; border-radius: 0.5rem; object-fit: cover; flex-shrink: 0; }
+.cafe-menu-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; }
 
 /* Accessibility and touch-friendly improvements */
 :root { --base-font-size: 16px; }
@@ -47,6 +47,7 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
 @media (max-width: 640px) {
     :root { --base-font-size: 17px; }
     .menu-item-thumb { width: 3rem; height: 3rem; }
+    .cafe-item-thumb { width: 3.5rem; height: 3.5rem; }
     .menu-card { padding: 0.75rem; }
     .menu-card img { width: 96px; height: 96px; object-fit: cover; }
     .tab-btn { padding: 0.65rem 1rem; font-size: 1rem; min-width: 100px; }
@@ -125,18 +126,16 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
   .category-scroll::before, .category-scroll::after { display: none !important; }
 }
 
-.menu-item-thumb {
+.menu-item-thumb,
+.cafe-item-thumb {
     width: 3rem;
     height: 3rem;
 }
 
 @media (max-width: 640px) {
-    .menu-item-thumb {
-        width: 4.5rem;
-        height: 4.5rem;
-    }
+    .menu-item-thumb,
     .cafe-item-thumb {
-        width: 4.5rem;
-        height: 4.5rem;
+        width: 3.5rem;
+        height: 3.5rem;
     }
 }
