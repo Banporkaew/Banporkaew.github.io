@@ -75,7 +75,7 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
   right: 0; 
   top: 0; 
   bottom: 0; 
-  width: 40px; 
+  width: auto; 
   background: linear-gradient(to right, transparent, rgba(253, 252, 251, 1)); 
   pointer-events: none; 
   z-index: 10;
@@ -86,7 +86,7 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
   left: 0;
   top: 0;
   bottom: 0;
-  width: 40px;
+  width: auto;
   background: linear-gradient(to left, transparent, rgba(253, 252, 251, 1));
   pointer-events: none;
   z-index: 10;

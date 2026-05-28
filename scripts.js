@@ -249,9 +249,9 @@ loadRecommended();
     const statusEl = document.getElementById('opening-status');
 
     if (isSunday) {
-        hoursText.textContent = 'อา: 14.00 – 22.00 น.';
+        hoursText.textContent = '14.00 – 22.00 น.';
     } else {
-        hoursText.textContent = 'จ–ส: 11.00 – 22.00 น.';
+        hoursText.textContent = '11.00 – 22.00 น.';
     }
 
     if (hour >= openHour && hour < closeHour) {
@@ -263,4 +263,19 @@ loadRecommended();
         statusEl.textContent = '🔴 ปิดแล้ว';
         statusEl.className = 'text-xs mt-0.5 text-red-400';
     }
+})();
+
+
+// Back to Top Button
+(function() {
+    const btn = document.getElementById('btn-top');
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            btn.classList.remove('opacity-0', 'pointer-events-none');
+            btn.classList.add('opacity-100');
+        } else {
+            btn.classList.add('opacity-0', 'pointer-events-none');
+            btn.classList.remove('opacity-100');
+        }
+    });
 })();
