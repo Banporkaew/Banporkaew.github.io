@@ -8,7 +8,7 @@ function scrollToSection(id) {
 }
 
 window.addEventListener('scroll', () => {
-    const sections = ['recommended', 'sets', 'boiled', 'soup', 'stirfry', 'spicysalad', 'somtum', 'fried', 'rice', 'desserts', 'drinks', 'info'];
+    const sections = ['recommended', 'sets', 'boiled', 'soup', 'stirfry', 'spicysalad', 'somtum', 'fried', 'rice', 'desserts', 'drinks', 'cafe', 'info'];
     let current = '';
 
     sections.forEach(section => {

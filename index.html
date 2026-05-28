@@ -52,6 +52,7 @@
             <button onclick="scrollToSection('rice')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="จานเดียว">จานเดียว</button>
             <button onclick="scrollToSection('desserts')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="สลัดและของหวาน">สลัด/ของหวาน</button>
 			<button onclick="scrollToSection('drinks')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="เครื่องดื่ม">เครื่องดื่ม</button>
+            <button onclick="scrollToSection('cafe')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="เมนูคาเฟ่">เมนูคาเฟ่</button>
             <button onclick="scrollToSection('info')" class="tab-btn text-gray-400 whitespace-nowrap text-sm transition-all font-medium" aria-label="ห้องจัดเลี้ยง">ห้องจัดเลี้ยง</button>
         </div>
     </nav>
@@ -458,6 +459,451 @@
             </div>
         </section>
 
+        <!-- เมนูคาเฟ่ -->
+
+        <section id="cafe" class="px-4 pt-10">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1 h-5 bg-amber-400 rounded-full mr-2"></span>
+                <span>เมนูคาเฟ่</span>
+            </h2>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <!-- เมนูคาเฟ่ - กลุ่มกาแฟ -->
+            <div class="space-y-1 mb-4">
+                <h3 class="text-sm font-bold text-amber-700 uppercase tracking-wide px-3 py-2 bg-amber-50 rounded-xl">☕ กาแฟ</h3>
+                <div class="space-y-1">
+                    <!-- เอสเพรสโซ่ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/เอสเพรสโซ่.png" alt="เอสเพรสโซ่" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=☕'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">เอสเพรสโซ่</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-amber-700 font-bold">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 60.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 65.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- อเมริกาโน่ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/อเมริกาโน่.png" alt="อเมริกาโน่" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=☕'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">อเมริกาโน่</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-amber-700 font-bold">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 60.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- อเมริกาโน่น้ำผึ้งมะนาว -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/อเมริกาโน่น้ำผึ้งมะนาว.png" alt="อเมริกาโน่น้ำผึ้งมะนาว" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=☕'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">อเมริกาโน่น้ำผึ้งมะนาว</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-amber-700 font-bold">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 65.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- อเมริกาโน่ส้ม -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/อเมริกาโน่ส้ม.png" alt="อเมริกาโน่ส้ม" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=☕'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">อเมริกาโน่ส้ม</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 65.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- มอคค่า -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/มอคค่า.png" alt="มอคค่า" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=☕'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">มอคค่า</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-amber-700 font-bold">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 60.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 65.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ลาเต้ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ลาเต้.png" alt="ลาเต้" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=☕'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ลาเต้</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-amber-700 font-bold">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 60.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 65.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- คาปูชิโน่ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/คาปูชิโน่.png" alt="คาปูชิโน่" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=☕'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">คาปูชิโน่</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-amber-700 font-bold">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 60.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 65.-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ชาเขียว -->
+            <div class="space-y-1 mb-4">
+                <h3 class="text-sm font-bold text-green-700 uppercase tracking-wide px-3 py-2 bg-green-50 rounded-xl">🍵 ชาเขียว</h3>
+                <div class="space-y-1">
+                    <!-- ชาเขียว -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ชาเขียว.png" alt="ชาเขียว" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍵'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ชาเขียว</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-amber-700 font-bold">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ชาเขียวมัทฉะ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ชาเขียวมัทฉะ.png" alt="ชาเขียวมัทฉะ" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍵'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ชาเขียวมัทฉะ</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-amber-700 font-bold">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 60.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 65.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ชาเขียวมะลิ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ชาเขียวมะลิ.png" alt="ชาเขียวมะลิ" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍵'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ชาเขียวมะลิ</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-amber-700 font-bold">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ชาเขียวมะนาว -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ชาเขียวมะนาว.png" alt="ชาเขียวมะนาว" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍵'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ชาเขียวมะนาว</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ชา -->
+            <div class="space-y-1 mb-4">
+                <h3 class="text-sm font-bold text-orange-600 uppercase tracking-wide px-3 py-2 bg-orange-50 rounded-xl">🧋 ชา</h3>
+                <div class="space-y-1">
+                    <!-- ชาไทย -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ชาไทย.png" alt="ชาไทย" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍵'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ชาไทย</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-gray-300">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ชาพีช -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ชาพีช.png" alt="ชาพีช" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍵'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ชาพีช</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-gray-300">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ชาเลมอนน้ำผึ้งมะนาว -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ชาเลมอนน้ำผึ้งมะนาว.png" alt="ชาเลมอนน้ำผึ้งมะนาว" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍵'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ชาเลมอนน้ำผึ้งมะนาว</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ชามะนาว -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ชามะนาว.png" alt="ชามะนาว" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍵'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ชามะนาว</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+
+            <!-- เครื่องดื่มอื่นๆ -->
+            <div class="space-y-1 mb-4">
+                <h3 class="text-sm font-bold text-pink-600 uppercase tracking-wide px-3 py-2 bg-pink-50 rounded-xl">🍫 เครื่องดื่มอื่นๆ</h3>
+                <div class="space-y-1">
+                    <!-- โกโก้ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/โกโก้.png" alt="โกโก้" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍫'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">โกโก้</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- โอวัลติน -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/โอวัลติน.png" alt="โอวัลติน" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🍫'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">โอวัลติน</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- นมสด -->
+            <div class="space-y-1 mb-4">
+                <h3 class="text-sm font-bold text-sky-600 uppercase tracking-wide px-3 py-2 bg-sky-50 rounded-xl">🥛 นมสด</h3>
+                <div class="space-y-1">
+                    <!-- นมสด -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมสด.png" alt="นมสด" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมสด</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- นมสดคาราเมล / วานิลลา -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมสดคาราเมล.png" alt="นมสดคาราเมล" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมสดคาราเมล / วานิลลา</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">ร้อน 45.-</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- นมสดโอรีโอ้ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมสดโอรีโอ้.png" alt="นมสดโอรีโอ้" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมสดโอรีโอ้</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- นมสดปีโป้ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมสดปีโป้.png" alt="นมสดปีโป้" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมสดปีโป้</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- นมสดมะลิ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมสดมะลิ.png" alt="นมสดมะลิ" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมสดมะลิ</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- นมชมพู -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมชมพู.png" alt="นมชมพู" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมชมพู</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- นมสดสตรอว์เบอร์รี่ -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมสดสตรอว์เบอร์รี่.png" alt="นมสดสตรอว์เบอร์รี่" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมสดสตรอว์เบอร์รี่</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- นมสดเผือกหอม -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมสดเผือกหอม.png" alt="นมสดเผือกหอม" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมสดเผือกหอม</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- นมสดมันม่วง --> 
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมสดมันม่วง.png" alt="นมสดมันม่วง" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมสดมันม่วง</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- นมสดแคนตาลูป -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/นมสดแคนตาลูป.png" alt="นมสดแคนตาลูป" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥛'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">นมสดแคนตาลูป</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 55.-</span>
+                                <span class="text-purple-600 font-bold">ปั่น 60.-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- โซดา -->
+            <div class="space-y-1">
+                <h3 class="text-sm font-bold text-cyan-600 uppercase tracking-wide px-3 py-2 bg-cyan-50 rounded-xl">🥤 โซดา</h3>
+                <div class="space-y-1">
+                    <!-- แดงโซดา -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/แดงโซดา.png" alt="แดงโซดา" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥤'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">แดงโซดา</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 50.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- สตรอว์เบอร์รี่โซดา -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/สตรอว์เบอร์รี่โซดา.png" alt="สตรอว์เบอร์รี่โซดา" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥤'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">สตรอว์เบอร์รี่โซดา</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 50.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- กีวี่โซดา -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/กีวี่โซดา.png" alt="กีวี่โซดา" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥤'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">กีวี่โซดา</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 50.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ลิ้นจี่โซดา -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/ลิ้นจี่โซดา.png" alt="ลิ้นจี่โซดา" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥤'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">ลิ้นจี่โซดา</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 50.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- มะนาวโซดา -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/มะนาวโซดา.png" alt="มะนาวโซดา" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥤'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">มะนาวโซดา</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 50.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- บลูฮาวายโซดา -->
+                    <div class="cafe-menu-item flex bg-white rounded-lg overflow-hidden shadow-xs border border-gray-100">
+                        <img src="images/บลูฮาวายโซดา.png" alt="บลูฮาวายโซดา" class="cafe-item-thumb" onerror="this.src='https://placehold.co/64x64/f3f4f6/999999?text=🥤'">
+                        <div class="flex-1 p-2 flex flex-col justify-between">
+                            <p class="text-gray-800 font-semibold text-sm">บลูฮาวายโซดา</p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="text-gray-300">—</span>
+                                <span class="text-sky-600 font-bold">เย็น 50.-</span>
+                                <span class="text-gray-300">—</span>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+            </div>
+
+        </section>
 
         <!-- ห้องจัดเลี้ยง -->
         <section id="info" class="px-4 pt-10 pb-4">
