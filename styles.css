@@ -2,11 +2,7 @@ body { font-family: 'Kanit', 'Inter', sans-serif; background-color: #fdfcfb; col
 .hero-gradient { background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%); }
 .category-scroll::-webkit-scrollbar { display: none; }
 .sticky-tabs { position: sticky; top: 0; z-index: 40; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-.active-tab {
-    color: #dc2626;
-    background-color: #fee2e2;
-    font-weight: 600;
-}
+.active-tab { color: #dc2626; border-bottom: 3px solid #dc2626; font-weight: 600; }
 .lang-btn.active { background-color: #dc2626; color: white; border-color: #dc2626; }
 .menu-card { transition: transform 0.2s; }
 .menu-card:active { transform: scale(0.98); }
@@ -38,7 +34,7 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
 
 .tab-btn { padding: 0.5rem 0.75rem; min-width: 84px; border-radius: 999px; font-size: 0.95rem; touch-action: manipulation; }
 .tab-btn:focus { outline: 3px solid rgba(220,38,38,0.12); outline-offset: 2px; }
-#nav-tabs { -webkit-overflow-scrolling: touch; scroll-padding: 1rem; padding-bottom: 0.25rem; }
+#nav-tabs { -webkit-overflow-scrolling: touch; scroll-padding: 1rem; padding-bottom: 0.25rem; padding-left: 44px !important;}
 
 /* Make list rows easier to tap */
 .grid .py-2.flex.justify-between.items-center { padding-top: 0.7rem; padding-bottom: 0.7rem; }
