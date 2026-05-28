@@ -235,3 +235,32 @@ loadRecommended();
         el.insertBefore(left, el.firstChild);
     });
 })();
+
+(function() {
+    const now = new Date();
+    const day = now.getDay(); // 0=อา, 1=จ, ..., 6=ส
+    const hour = now.getHours() + now.getMinutes() / 60;
+
+    const isSunday = day === 0;
+    const openHour = isSunday ? 14 : 11;
+    const closeHour = 22;
+
+    const hoursText = document.getElementById('opening-hours-text');
+    const statusEl = document.getElementById('opening-status');
+
+    if (isSunday) {
+        hoursText.textContent = 'อา: 14.00 – 22.00 น.';
+    } else {
+        hoursText.textContent = 'จ–ส: 11.00 – 22.00 น.';
+    }
+
+    if (hour >= openHour && hour < closeHour) {
+        hoursText.classList.add('text-emerald-400');
+        statusEl.textContent = '🟢 เปิดอยู่ตอนนี้';
+        statusEl.className = 'text-xs mt-0.5 text-emerald-400';
+    } else {
+        hoursText.classList.add('text-red-400');
+        statusEl.textContent = '🔴 ปิดแล้ว';
+        statusEl.className = 'text-xs mt-0.5 text-red-400';
+    }
+})();
