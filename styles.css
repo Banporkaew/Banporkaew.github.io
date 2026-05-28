@@ -122,8 +122,8 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
 }
 
 .menu-item-thumb {
-    width: 4rm;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
 }
 
 @media (max-width: 640px) {
