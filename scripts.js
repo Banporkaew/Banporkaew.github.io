@@ -280,3 +280,37 @@ loadRecommended();
     });
 })();
 
+function searchMenu() {
+    const query = document.getElementById('menu-search').value.toLowerCase().trim();
+    
+    // ค้นหาทุกแถวเมนูอาหารที่อยู่ในตารางแบ่งเส้น (divide-y) และ menu-card แบบการ์ดใหญ่
+    const menuItems = document.querySelectorAll('.menu-card, .divide-y > div');
+    
+    menuItems.forEach(item => {
+        // ดึงข้อความทั้งหมดภายในแถวนั้น ๆ มาเช็ค
+        const itemText = item.textContent.toLowerCase();
+        
+        if (itemText.includes(query)) {
+            // ถ้าตรงกับคำค้นหา ให้แสดงผลตามปกติ (ลบ Class ซ่อนออก)
+            item.classList.remove('hidden');
+        } else {
+            // ถ้าไม่ตรง ให้ซ่อนรายการนั้นไว้
+            item.classList.add('hidden');
+        }
+    });
+
+    // ตรวจสอบหัวข้อหลัก (Section) ต่าง ๆ ถ้าเมนูด้านในถูกซ่อนหมด ให้ซ่อนหัวข้อนั้นไปด้วย
+    const sections = document.querySelectorAll('main > section');
+    sections.forEach(section => {
+        const visibleItems = section.querySelectorAll('.menu-card:not(.hidden), .divide-y > div:not(.hidden)');
+        const titleAndAlert = section.querySelectorAll('h2, h3, .bg-orange-50'); // ดึงหัวข้อและข้อความแจ้งเตือนมาด้วย
+        
+        if (query !== '' && visibleItems.length === 0) {
+            // ถ้ามีการพิมพ์ค้นหาแล้วไม่มีเมนูที่เข้าข่ายเลย ให้ซ่อนหัวข้อ section นั้นไปชั่วคราว
+            titleAndAlert.forEach(el => el.classList.add('hidden'));
+        } else {
+            // ถ้าช่องค้นหาว่าง หรือยังมีเมนูเหลืออยู่ ให้แสดงหัวข้อตามปกติ
+            titleAndAlert.forEach(el => el.classList.remove('hidden'));
+        }
+    });
+}
