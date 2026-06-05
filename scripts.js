@@ -7,6 +7,207 @@ function scrollToSection(id) {
     window.scrollTo({ top: offsetPosition, behavior: "smooth" });
 }
 
+// --------------------------
+// Simple cart functionality
+// --------------------------
+function getCart() {
+    try {
+        return JSON.parse(localStorage.getItem('cart') || '[]');
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+}
+
+function parseVariants(name) {
+    // 1) parenthesis-based variants: "ต้มยำ (น้ำข้น-น้ำใส)"
+    const m = name.match(/\(([^)]+)\)/);
+    if (m) {
+        const raw = m[1];
+        const options = raw.split(/[\/\-|,]+/).map(s => s.trim()).filter(Boolean);
+        const base = name.replace(/\s*\([^)]+\)/, '').trim();
+        return { base, options };
+    }
+
+    // 2) slash-separated in-name variants: "ไส้ตัน/กระเพาะลวกจิ้ม" or "แกงส้มกุ้ง/แกงส้มปลา"
+    if (name.indexOf('/') >= 0) {
+        const parts = name.split('/').map(s => s.trim()).filter(Boolean);
+        if (parts.length <= 1) return null;
+
+        // longest common prefix
+        function longestCommonPrefix(arr) {
+            if (!arr.length) return '';
+            let prefix = arr[0];
+            for (let i = 1; i < arr.length; i++) {
+                let j = 0;
+                while (j < prefix.length && j < arr[i].length && prefix[j] === arr[i][j]) j++;
+                prefix = prefix.slice(0, j);
+                if (!prefix) break;
+            }
+            return prefix;
+        }
+
+        const cp = longestCommonPrefix(parts);
+        if (cp && cp.length >= 2) {
+            // likely cases like 'แกงส้มกุ้ง/แกงส้มปลา' — keep as-is
+            return { base: name.replace(/\s*\/\s*/g, ' / '), options: parts };
+        }
+
+        const last = parts[parts.length - 1];
+        // try to detect a meaningful tail (suffix) from last that is not present in earlier parts
+        let tail = '';
+        for (let len = Math.min(last.length - 1, last.length); len >= 2; len--) {
+            const candidate = last.slice(-len);
+            if (!candidate) continue;
+            let appears = false;
+            for (let i = 0; i < parts.length - 1; i++) {
+                if (parts[i].includes(candidate)) { appears = true; break; }
+            }
+            if (!appears) { tail = candidate; break; }
+        }
+
+        let options;
+        if (tail) {
+            // Only append tail to short parts (likely missing the shared suffix),
+            // otherwise keep the part as-is to avoid incorrect concatenation.
+            const minAppendLen = Math.max(6, tail.length - 1);
+            options = parts.map(p => {
+                if (p.includes(tail)) return p;
+                const shouldAppend = p.length <= minAppendLen;
+                return shouldAppend ? (p + tail) : p;
+            }).map(s => s.trim()).filter(Boolean);
+        } else {
+            options = parts;
+        }
+
+        return { base: name.replace(/\s*\/\s*/g, ' / '), options };
+    }
+
+    return null;
+}
+
+function showVariantModal(base, options, onChoose) {
+    // remove existing
+    const existing = document.getElementById('variant-modal');
+    if (existing) existing.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'variant-modal';
+    overlay.style = 'position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);z-index:80;padding:20px;';
+
+    const box = document.createElement('div');
+    box.className = 'bg-white rounded-2xl p-4 max-w-sm w-full shadow-lg';
+    box.innerHTML = `<p class="font-semibold text-gray-800 mb-3">เลือกตัวเลือกสำหรับ<br><span class="font-bold">${base}</span></p>`;
+
+    const list = document.createElement('div');
+    list.className = 'space-y-2';
+    options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left px-4 py-2 rounded-md border border-gray-200';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => {
+            overlay.remove();
+            onChoose(`${base} (${opt})`);
+        });
+        list.appendChild(btn);
+    });
+
+    const cancel = document.createElement('div');
+    cancel.className = 'mt-3';
+    cancel.innerHTML = `<button class="w-full px-4 py-2 rounded-md border border-gray-200 bg-gray-50">ยกเลิก</button>`;
+    cancel.querySelector('button').addEventListener('click', () => overlay.remove());
+
+    box.appendChild(list);
+    box.appendChild(cancel);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+}
+
+function addToCart(name) {
+    // if name includes choices like (a/b) or (x-y), prompt selection
+    const v = parseVariants(name);
+    if (v && v.options.length > 1) {
+        showVariantModal(v.base, v.options, (chosen) => addToCart(chosen));
+        return;
+    }
+
+    const cart = getCart();
+    const idx = cart.findIndex(i => i.name === name);
+    if (idx >= 0) cart[idx].qty += 1;
+    else cart.push({ name: name, qty: 1 });
+    saveCart(cart);
+
+    // small toast feedback
+    const t = document.createElement('div');
+    t.textContent = `${name} เพิ่มลงตะกร้า`;
+    t.style = 'position:fixed;left:50%;transform:translateX(-50%);top:18px;background:#111;color:#fff;padding:8px 14px;border-radius:999px;z-index:60;font-size:13px;';
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 1500);
+}
+
+function clearCart() {
+    localStorage.removeItem('cart');
+    updateCartCount();
+}
+
+function updateCartCount() {
+    const cart = getCart();
+    const total = cart.reduce((s, i) => s + (i.qty || 0), 0);
+    const el = document.getElementById('floating-cart-count');
+    if (el) el.textContent = total > 0 ? total : '';
+}
+
+function initAddButtons() {
+    // Find menu rows and add a small Add button
+    const rows = document.querySelectorAll('.grid .py-2.flex.justify-between.items-center, .grid > div.py-2.flex.justify-between.items-center');
+    rows.forEach(row => {
+        if (row.querySelector('.add-to-cart-btn')) return; // already added
+        const nameSpan = row.querySelector('span.text-gray-700') || row.querySelector('span');
+        if (!nameSpan) return;
+        const name = nameSpan.textContent.trim();
+
+        const btn = document.createElement('button');
+        btn.className = 'add-to-cart-btn bg-red-50 text-red-600 px-3 py-1 rounded-xl text-[11px] font-semibold';
+        btn.textContent = 'เพิ่ม';
+        btn.style.marginLeft = '8px';
+        btn.addEventListener('click', (e) => { e.stopPropagation(); addToCart(name); });
+
+        // append next to price on the right
+        const right = row.querySelector(':scope > span:last-child') || null;
+        if (right) {
+            const wrapper = document.createElement('span');
+            wrapper.className = 'flex items-center gap-2';
+            wrapper.appendChild(right.cloneNode(true));
+            wrapper.appendChild(btn);
+            right.replaceWith(wrapper);
+        } else {
+            row.appendChild(btn);
+        }
+    });
+}
+
+// create floating cart button
+(function createFloatingCart(){
+    const btn = document.createElement('a');
+    btn.href = 'pages/cart.html';
+    btn.id = 'floating-cart';
+    btn.className = 'fixed bottom-6 left-4 z-50 flex items-center gap-2 bg-white border border-gray-200 shadow-lg rounded-full px-3 py-2';
+    btn.style.textDecoration = 'none';
+    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span id="floating-cart-count" style="background:#dc2626;color:#fff;padding:3px 7px;border-radius:999px;font-size:12px;min-width:18px;text-align:center;display:inline-block"></span>`;
+    document.body.appendChild(btn);
+    updateCartCount();
+})();
+
+// initialize on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    initAddButtons();
+    updateCartCount();
+});
+
 window.addEventListener('scroll', () => {
     const sections = ['recommended', 'sets', 'boiled', 'soup', 'stirfry', 'spicysalad', 'somtum', 'fried', 'rice', 'desserts', 'drinks', 'cafe', 'info'];
     let current = '';
