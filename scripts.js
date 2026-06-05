@@ -24,12 +24,38 @@ function saveCart(cart) {
 }
 
 function parseVariants(name) {
+    // Handle bracket-based options and size-sets first: e.g. "ทอดน้ำปลา [นิล, กระพง] (นิลชุดเล็ก 159)"
+    const bracketMatch = name.match(/\[([^\]]+)\]/);
+    const parenMatch = name.match(/\(([^)]+)\)/);
+
+    // base = name without bracket/parenthesis noise
+    const base = name.replace(/\s*\[[^\]]+\]/, '').replace(/\s*\([^)]+\)/, '').trim();
+
+    if (bracketMatch) {
+        const bracketOptions = bracketMatch[1].split(/[\/,]+/).map(s => s.trim()).filter(Boolean);
+
+        // If there is parenthesis mentioning 'ชุด' (sizes), produce combined fish+size options
+        if (parenMatch && /ชุด/.test(parenMatch[1])) {
+                // When parenthesis mentions 'ชุด', offer both sizes (เล็ก/ใหญ่)
+                const parenParts = parenMatch[1].split(/[\/-|,]+/).map(s => s.trim()).filter(Boolean);
+                const sizes = ['ชุดเล็ก', 'ชุดใหญ่'];
+
+            const options = [];
+            bracketOptions.forEach(b => {
+                sizes.forEach(sz => options.push(`${b} ${sz}`));
+            });
+            return { base, options };
+        }
+
+        // If only bracket options (no sizes), return them directly
+        return { base, options: bracketOptions };
+    }
+
     // 1) parenthesis-based variants: "ต้มยำ (น้ำข้น-น้ำใส)"
-    const m = name.match(/\(([^)]+)\)/);
+    const m = parenMatch;
     if (m) {
         const raw = m[1];
         const options = raw.split(/[\/\-|,]+/).map(s => s.trim()).filter(Boolean);
-        const base = name.replace(/\s*\([^)]+\)/, '').trim();
         return { base, options };
     }
 
