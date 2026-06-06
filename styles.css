@@ -132,6 +132,20 @@ body { font-size: var(--base-font-size); line-height: 1.45; }
     height: 3rem;
 }
 
+/* New block-style menu items (component) */
+.menu-item-block { display: flex; gap: 0.75rem; align-items: center; background: #fff; border-radius: 12px; padding: 0.75rem; border: 1px solid #f1f5f9; box-shadow: 0 6px 14px rgba(2,6,23,0.04); margin-bottom: 0.75rem; }
+.menu-item-block .menu-item-content { flex: 1; min-width: 0; }
+.menu-item-block .menu-item-title { font-weight: 700; color: #111827; font-size: 0.98rem; }
+.menu-item-block .menu-item-sub { color: #6b7280; font-size: 0.86rem; margin-top: 0.25rem; }
+.menu-item-block .menu-item-actions { display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem; }
+.menu-item-block .menu-item-price { color: #dc2626; font-weight:800; }
+.menu-item-block .menu-item-thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; }
+
+@media (max-width: 640px) {
+    .menu-item-block { padding: 0.6rem; }
+    .menu-item-block .menu-item-thumb { width: 48px; height: 48px; }
+}
+
 @media (max-width: 640px) {
     .menu-item-thumb,
     .cafe-item-thumb {

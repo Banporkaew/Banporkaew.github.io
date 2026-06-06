@@ -230,9 +230,79 @@ function initAddButtons() {
 
 // initialize on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Convert simple list rows into standardized block components
+    try { renderMenuBlocks(); } catch (e) { console.warn('renderMenuBlocks error', e); }
     initAddButtons();
     updateCartCount();
 });
+
+// --- Menu renderer: convert existing simple rows into reusable block components ---
+function renderMenuBlocks() {
+    const placeholder = 'https://placehold.co/96x96/cccccc/555555?text=เมนู';
+    // target simple list rows inside sections (divide-y grids)
+    const rows = document.querySelectorAll('.grid .py-2.flex.justify-between.items-center');
+    rows.forEach(row => {
+        // skip if already converted
+        if (row.classList.contains('menu-item-block') || row.dataset.converted) return;
+
+        const nameSpan = row.querySelector('span.text-gray-700') || row.querySelector('span');
+        const priceSpan = row.querySelector(':scope > span.text-red-600') || row.querySelector(':scope > span:last-child');
+        const imgSrc = row.getAttribute('data-img') || placeholder;
+        const name = nameSpan ? nameSpan.textContent.trim() : row.textContent.trim();
+        const price = priceSpan ? priceSpan.textContent.trim() : '';
+
+        // build block
+        const block = document.createElement('div');
+        block.className = 'menu-item-block';
+
+        const img = document.createElement('img');
+        img.className = 'menu-item-thumb';
+        img.src = imgSrc;
+        img.alt = name;
+        img.onerror = function() { this.onerror = null; this.src = placeholder; };
+
+        const content = document.createElement('div');
+        content.className = 'menu-item-content';
+        const title = document.createElement('div');
+        title.className = 'menu-item-title';
+        title.textContent = name;
+        content.appendChild(title);
+
+        // preserve any small description inside the original row (rare)
+        const desc = row.querySelector('.text-[11px], .text-gray-400, .text-sm');
+        if (desc && desc.textContent.trim()) {
+            const sub = document.createElement('div');
+            sub.className = 'menu-item-sub';
+            sub.textContent = desc.textContent.trim();
+            content.appendChild(sub);
+        }
+
+        const actions = document.createElement('div');
+        actions.className = 'menu-item-actions';
+        const priceEl = document.createElement('div');
+        priceEl.className = 'menu-item-price';
+        priceEl.textContent = price;
+
+        const addBtn = document.createElement('button');
+        addBtn.className = 'add-to-cart-btn';
+        addBtn.textContent = 'เพิ่ม';
+        addBtn.style.marginLeft = '0';
+        addBtn.setAttribute('aria-label', `เพิ่ม ${name} ลงตะกร้า`);
+        addBtn.addEventListener('click', (e) => { e.stopPropagation(); addToCart(name); });
+
+        actions.appendChild(priceEl);
+        actions.appendChild(addBtn);
+
+        block.appendChild(img);
+        block.appendChild(content);
+        block.appendChild(actions);
+
+        // replace original row with block
+        row.parentNode.replaceChild(block, row);
+        // mark converted
+        block.dataset.converted = '1';
+    });
+}
 
 window.addEventListener('scroll', () => {
     const sections = ['recommended', 'sets', 'boiled', 'soup', 'stirfry', 'spicysalad', 'somtum', 'fried', 'rice', 'desserts', 'drinks', 'cafe', 'info'];
